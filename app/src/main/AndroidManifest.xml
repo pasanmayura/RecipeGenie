@@ -38,6 +38,10 @@
             android:name=".EditProfile"
             android:exported="false" />
         <activity
+            android:name=".Profile"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".GetStarted"
             android:exported="true" />
         <activity
