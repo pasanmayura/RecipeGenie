@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/getstarted"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cooking_bg"
+    tools:context=".GetStarted">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="296dp"
+        android:layout_height="145dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="411dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginBottom="75dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center_vertical"
+        android:text="@string/explore_coo"
+        android:textAppearance="@style/explore_coo"
+        app:layout_constraintBottom_toTopOf="@+id/buttonGet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonGet"
+        android:layout_width="294dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="92dp"
+        android:backgroundTint="#FB8A22"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:text="Get Started "
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
