@@ -38,7 +38,6 @@ public class Profile extends AppCompatActivity {
         changePaswwordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the SecondActivity
                 Intent intent = new Intent(Profile.this, ChangePassword.class);
                 startActivity(intent);
             }
