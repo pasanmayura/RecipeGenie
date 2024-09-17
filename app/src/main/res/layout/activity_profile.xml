@@ -143,10 +143,10 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_width="361dp"
-        android:layout_height="67dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginTop="440dp"
+        android:layout_marginTop="400dp"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -156,20 +156,20 @@
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_nav_menu" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="422dp"
-        android:layout_marginEnd="169dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/add_icon"
-        app:backgroundTint="#FB8A22"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="@+id/bottomNavigationView"
-        app:layout_constraintStart_toStartOf="@+id/bottomNavigationView"
-        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/add"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="168dp"-->
+<!--        android:layout_marginTop="422dp"-->
+<!--        android:layout_marginEnd="169dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:src="@drawable/add_icon"-->
+<!--        app:backgroundTint="#FB8A22"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/bottomNavigationView"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/bottomNavigationView"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
