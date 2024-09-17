@@ -27,19 +27,6 @@
 
     <!-- profile -->
 
-    <ImageButton
-        android:id="@+id/top_back_button"
-        android:layout_width="40dp"
-        android:layout_height="36dp"
-        android:backgroundTint="#FB8A22"
-        android:src="@drawable/baseline_arrow_back_ios_new_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.054" />
-
     <TextView
         android:id="@+id/profile_text_view"
         android:layout_width="wrap_content"
@@ -69,8 +56,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.155" />
-
-   
     <!-- profile name-->
 
     <!-- contains the buttons -->
@@ -92,8 +77,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="334dp"
-        android:layout_height="373dp"
+        android:layout_width="315dp"
+        android:layout_height="354dp"
         android:backgroundTint="#FFFFFF"
         android:gravity="center"
         android:orientation="vertical"
@@ -101,13 +86,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/white_rectangle"
-        app:layout_constraintVertical_bias="0.284">
+        app:layout_constraintVertical_bias="0.259">
 
         <ImageButton
             android:id="@+id/edit_profile"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_margin="15dp"
+            android:layout_height="60dp"
+            android:layout_margin="12dp"
             android:backgroundTint="#FFFFFF"
             android:src="@drawable/edit_profile" />
 
@@ -115,7 +100,7 @@
             android:id="@+id/change_password"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_margin="15dp"
+            android:layout_margin="12dp"
             android:backgroundTint="#FFFFFF"
             android:clickable="true"
             android:src="@drawable/change_password" />
@@ -124,7 +109,7 @@
             android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_margin="15dp"
+            android:layout_margin="12dp"
             android:backgroundTint="#FFFFFF"
             android:clickable="true"
             android:src="@drawable/logout" />
@@ -133,7 +118,7 @@
             android:id="@+id/delete_account"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_margin="15dp"
+            android:layout_margin="12dp"
             android:backgroundTint="#FFFFFF"
             android:clickable="true"
             android:src="@drawable/delete_account" />
@@ -158,14 +143,14 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="361dp"
+        android:layout_height="67dp"
         android:layout_gravity="bottom"
         android:layout_marginTop="440dp"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/white_rectangle"
         app:layout_constraintVertical_bias="1.0"
@@ -176,7 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="168dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="422dp"
         android:layout_marginEnd="169dp"
         android:layout_marginBottom="16dp"
         android:src="@drawable/add_icon"
@@ -184,8 +169,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="@+id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="@+id/bottomNavigationView"
-        app:layout_constraintTop_toTopOf="@+id/bottomNavigationView" />
-
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
