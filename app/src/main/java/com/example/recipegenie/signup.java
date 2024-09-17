@@ -1,6 +1,5 @@
 package com.example.recipegenie;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,10 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class signup extends AppCompatActivity {
 
@@ -25,6 +27,8 @@ public class signup extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView loginTextView;
 
+    DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,7 @@ public class signup extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         // Bind views
         nameEditText = findViewById(R.id.username);
@@ -68,11 +73,11 @@ public class signup extends AppCompatActivity {
                     return;
                 }
                 if (TextUtils.isEmpty(confirmPassword)) {
-                    confirmEditText.setError("Password is required");
+                    confirmEditText.setError("Confirm password is required");
                     return;
                 }
                 if (!password.equals(confirmPassword)) {
-                    confirmEditText.setError("Password do not match");
+                    confirmEditText.setError("Passwords do not match");
                     return;
                 }
 
@@ -83,7 +88,24 @@ public class signup extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign up success
-                                    Toast.makeText(signup.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                                    String userId = mAuth.getCurrentUser().getUid(); // Get the user's Firebase UID
+                                    Users user = new Users(userId, name, email, password, confirmPassword);
+
+                                    // Store user data in Firebase Realtime Database
+                                    databaseReference.child(userId).setValue(user)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(signup.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(signup.this, Login.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    } else {
+                                                        Toast.makeText(signup.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
                                 } else {
                                     // Sign up failed, display a message to the user
                                     Toast.makeText(signup.this, "Sign up failed: " + task.getException().getMessage(),
@@ -98,7 +120,7 @@ public class signup extends AppCompatActivity {
         loginTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Redirect to ForgotPassword activity
+                // Redirect to Login activity
                 Intent intent = new Intent(signup.this, Login.class);
                 startActivity(intent);
             }
