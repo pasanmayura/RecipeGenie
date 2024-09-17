@@ -10,21 +10,21 @@
 
     <ImageView
         android:id="@+id/background_img"
-        android:layout_width="410dp"
-        android:layout_height="541dp"
+        android:layout_width="371dp"
+        android:layout_height="519dp"
         android:layout_gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/white_rectangle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058"
+        app:layout_constraintVertical_bias="0.159"
         app:srcCompat="@drawable/mask_group" />
 
     <ImageView
         android:id="@+id/white_rectangle"
-        android:layout_width="515dp"
-        android:layout_height="477dp"
+        android:layout_width="363dp"
+        android:layout_height="474dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,23 +43,23 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo_small" />
 
+
     <TextView
         android:id="@+id/textViewUnleash"
         android:layout_width="326dp"
         android:layout_height="107dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="36dp"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text="Unleash Your Inner Chef Explore, Create, and Savor"
-        android:textSize="24sp"
         android:textColor="#FFFFFF"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo_img" />
-
 
     <TextView
         android:id="@+id/textViewEvery"
@@ -67,18 +67,17 @@
         android:layout_height="89dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
         android:text="Every Bite!"
         android:textColor="#FB8A22"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewUnleash"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSet"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSet"
-        app:layout_constraintVertical_bias="0.555" />
+        app:layout_constraintTop_toTopOf="@+id/textViewUnleash" />
 
     <TextView
         android:id="@+id/textViewSet"
@@ -86,32 +85,35 @@
         android:layout_height="110dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="2dp"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text="Let's Connect With Us!"
         android:textColor="#2A3139"
         android:textSize="34sp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEvery"
+        app:layout_constraintBottom_toTopOf="@+id/emailInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.552"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailInput"
-        android:layout_width="322dp"
-        android:layout_height="75dp"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="490dp"
+        android:layout_width="317dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/passwordInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSet"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/textViewSet">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEdit"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="match_parent"
             android:hint="email"
             android:inputType="textEmailAddress"
             app:layout_constraintTop_toBottomOf="@+id/textViewSet" />
@@ -119,18 +121,18 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInputLayout"
-        android:layout_width="322dp"
-        android:layout_height="75dp"
+        android:layout_width="317dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="14dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.627"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailInput"
-        tools:layout_editor_absoluteY="571dp">
+        app:layout_constraintTop_toBottomOf="@+id/emailInput">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText1"
             android:layout_width="match_parent"
-            android:layout_height="51dp"
+            android:layout_height="match_parent"
             android:hint="Password"
             android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@+id/emailInput" />
@@ -140,8 +142,8 @@
         android:id="@+id/forgotPasswordText"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="278dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="end"
         android:onClick="onForgotPasswordClicked"
@@ -150,47 +152,50 @@
         android:textColor="#7D7D7D"
         android:textSize="14sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />
 
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="322dp"
         android:layout_height="56dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="314dp"
+        android:layout_marginBottom="104dp"
         android:backgroundTint="#FB8A22"
+        android:elevation="4dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Log In"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:elevation="4dp"
         android:translationZ="8dp"
-    app:cornerRadius="8dp"
-    app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.504"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/white_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />
 
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="322dp"
         android:layout_height="56dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="378dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="#FFFFFF"
+        android:elevation="4dp"
         android:fontFamily="@font/poppins_semibold"
+        android:outlineAmbientShadowColor="@color/cardview_dark_background"
         android:text="Register"
         android:textColor="#FB8A22"
         android:textStyle="bold"
-        android:outlineAmbientShadowColor="@color/cardview_dark_background"
-        android:elevation="4dp"
         android:translationZ="8dp"
         app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/white_rectangle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonLogin" />
-
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
