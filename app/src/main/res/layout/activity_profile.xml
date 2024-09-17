@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/white_rectangle"
-        android:layout_width="402dp"
-        android:layout_height="641dp"
+        android:layout_width="361dp"
+        android:layout_height="639dp"
         android:layout_marginTop="430dp"
         android:scaleType="fitXY"
         android:src="@drawable/white_rectangle"
@@ -165,9 +165,10 @@
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/white_rectangle"
+        app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_nav_menu" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
