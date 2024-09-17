@@ -28,7 +28,7 @@ public class SetNewPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the SecondActivity
-                Intent intent = new Intent(SetNewPasswordActivity.this, GetStarted.class);
+                Intent intent = new Intent(SetNewPasswordActivity.this, Login.class);
                 startActivity(intent);
             }
         });
