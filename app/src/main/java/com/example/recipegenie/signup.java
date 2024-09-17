@@ -89,7 +89,7 @@ public class signup extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign up success
                                     String userId = mAuth.getCurrentUser().getUid(); // Get the user's Firebase UID
-                                    Users user = new Users(userId, name, email, password, confirmPassword);
+                                    Users user = new Users(userId, name, email);
 
                                     // Store user data in Firebase Realtime Database
                                     databaseReference.child(userId).setValue(user)
