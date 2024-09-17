@@ -3,6 +3,7 @@ package com.example.recipegenie;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -25,11 +26,22 @@ public class Forgot_Password extends AppCompatActivity {
 
         });
         TextView textView = findViewById(R.id.textViewBack);
+        Button sendButton = findViewById(R.id.buttonReset);
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Start the SecondActivity
                 Intent intent = new Intent(Forgot_Password.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the SecondActivity
+                Intent intent = new Intent(Forgot_Password.this, PasswordReset.class);
                 startActivity(intent);
             }
         });
