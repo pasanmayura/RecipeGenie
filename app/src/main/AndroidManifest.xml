@@ -29,6 +29,9 @@
             android:name=".PasswordReset"
             android:exported="true"/>
         <activity
+            android:name=".SetNewPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".signup"
             android:exported="false" />
         <activity
