@@ -5,15 +5,12 @@ public class Users {
     private String userId;
     private String userName;
     private String userEmail;
-    private String userPassword;
-    private String userConfirmPassword;
 
-    public Users(String userId, String userName, String userEmail, String userPassword, String userConfirmPassword) {
+
+    public Users(String userId, String userName, String userEmail) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userPassword = userPassword;
-        this.userConfirmPassword = userConfirmPassword;
     }
 
     public String getUserId() {
@@ -28,11 +25,5 @@ public class Users {
         return userEmail;
     }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
 
-    public String getUserConfirmPassword() {
-        return userConfirmPassword;
-    }
 }
