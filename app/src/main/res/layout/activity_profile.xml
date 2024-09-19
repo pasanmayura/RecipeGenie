@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?> <!--IM/2021/064- Udani -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FB8A22"
+    tools:context=".Profile">
+
+    <!-- white background-->
+
+    <ImageView
+        android:id="@+id/white_rectangle"
+        android:layout_width="361dp"
+        android:layout_height="639dp"
+        android:layout_marginTop="430dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/white_rectangle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- back button -->
+
+    <!-- profile -->
+
+    <TextView
+        android:id="@+id/profile_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:text="Profile"
+        android:textColor="#FFFFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.067" />
+
+    <!-- profile photo -->
+    <ImageView
+        android:id="@+id/profile_pic"
+        android:layout_width="160dp"
+        android:layout_height="126dp"
+        android:gravity="center"
+        android:src="@drawable/person_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.155" />
+    <!-- profile name-->
+
+    <!-- contains the buttons -->
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:text="John Doe"
+        android:textColor="#FFFFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.314" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="309dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFFFFF"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle"
+        app:layout_constraintVertical_bias="0.259">
+
+
+        <Button
+            android:id="@+id/edit_profile"
+            android:layout_width="284dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:drawableLeft="@drawable/edit_profile"
+            android:elevation="8dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Edit Profile"
+            android:textAlignment="textStart"
+            android:textColor="#2A3139"
+            android:textSize="16sp"
+            android:translationZ="8dp"
+            app:cornerRadius="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/change_password"
+            android:layout_width="284dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:drawableLeft="@drawable/change_password"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Change Password"
+            android:textAlignment="textStart"
+            android:textColor="#2A3139"
+            android:textSize="16sp"
+            android:translationZ="8dp"
+            app:cornerRadius="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="285dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:drawableLeft="@drawable/logout"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Logout"
+            android:textAlignment="textStart"
+            android:textColor="#2A3139"
+            android:textSize="16sp"
+            android:translationZ="8dp"
+            app:cornerRadius="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/delete_account"
+            android:layout_width="285dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:drawableLeft="@drawable/delete_account"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Delete Account"
+            android:textAlignment="textStart"
+            android:textColor="#2A3139"
+            android:textSize="16sp"
+            android:translationZ="8dp"
+            app:cornerRadius="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="129dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="132dp"
+        android:layout_marginBottom="618dp"
+        app:layout_constraintBottom_toBottomOf="@+id/white_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/white_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle"
+        app:srcCompat="@drawable/line" />
+
+    <!--IM/2021/064- Udani -->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="400dp"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/add"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="168dp"-->
+    <!--        android:layout_marginTop="422dp"-->
+    <!--        android:layout_marginEnd="169dp"-->
+    <!--        android:layout_marginBottom="16dp"-->
+    <!--        android:src="@drawable/add_icon"-->
+    <!--        app:backgroundTint="#FB8A22"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/bottomNavigationView"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/bottomNavigationView"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
