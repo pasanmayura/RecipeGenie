@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">RecipeGenie</string>
-    <string name="explore_coo">Explore, Cook, and Share\nYour Culinary Creations \n<b>with</b> \n<b><font color="#FFA500" size="32">RecipeGenie!</font></b>
+    <string name="explore_cook">Explore, Cook, and Share\nYour Culinary Creations \n<b>with</b> \n<b><font color="#FFA500" size="32">RecipeGenie!</font></b>
     </string>
 </resources>
