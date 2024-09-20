@@ -46,6 +46,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.glide)
     annotationProcessor(libs.glideCompiler)
-
+    implementation(libs.recyclerview)
+    implementation(libs.picasso)
 }
 
