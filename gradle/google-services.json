@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "546603590456",
+    "firebase_url": "https://recipegenie-81451-default-rtdb.firebaseio.com",
+    "project_id": "recipegenie-81451",
+    "storage_bucket": "recipegenie-81451.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546603590456:android:0bf9e8eb814879f708d7cd",
+        "android_client_info": {
+          "package_name": "com.example.recipegenie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqkLW-eXYAGrJoW4rPlkwbGyW2nLko2gE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
