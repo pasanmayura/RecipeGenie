@@ -69,7 +69,7 @@ public class Login extends AppCompatActivity {
                                 Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
 
                                 // Redirect to Home activity
-                                Intent intent = new Intent(Login.this, Profile.class);
+                                Intent intent = new Intent(Login.this, Home.class);
                                 startActivity(intent);
                                 finish(); // Optional: Prevents returning to this activity
                             } else {
