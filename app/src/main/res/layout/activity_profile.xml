@@ -104,8 +104,8 @@
             app:cornerRadius="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
 
         <Button
             android:id="@+id/change_password"
@@ -122,8 +122,8 @@
             app:cornerRadius="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
 
         <Button
             android:id="@+id/logout"
@@ -140,8 +140,8 @@
             app:cornerRadius="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
 
         <Button
             android:id="@+id/delete_account"
@@ -158,8 +158,8 @@
             app:cornerRadius="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
     </LinearLayout>
 
     <ImageView
