@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -173,6 +174,10 @@ public class Profile extends AppCompatActivity {
            }
         });*/
         //IM/2021/064
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        NavBar.setupBottomNavigation(Profile.this, bottomNavigationView, R.id.home);
+        bottomNavigationView.setSelectedItemId(R.id.profile);
 
     }
 }
