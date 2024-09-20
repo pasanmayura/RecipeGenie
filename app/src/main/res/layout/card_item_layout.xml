@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recipeCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="8dp"
@@ -19,24 +20,24 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_vertical"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingStart="16dp"
-            android:gravity="center_vertical">
+            android:paddingStart="16dp">
 
             <TextView
                 android:id="@+id/titleCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
+                android:textColor="@android:color/black"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/descriptionCard"
@@ -44,9 +45,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Description"
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
 
+            <TextView
+                android:id="@+id/timeCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Time"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
