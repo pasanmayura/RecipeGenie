@@ -1,13 +1,11 @@
 package com.example.recipegenie;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -61,7 +59,10 @@ public class Home extends AppCompatActivity {
 
         // Set up Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
         NavBar.setupBottomNavigation(Home.this, bottomNavigationView, R.id.home);
+
+        TextView UsernameTextView = findViewById(R.id.displayname);
+        UserDataFetch.fetchUsername(UsernameTextView);
     }
+
 }

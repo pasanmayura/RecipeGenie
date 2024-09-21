@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -179,5 +180,7 @@ public class Profile extends AppCompatActivity {
         NavBar.setupBottomNavigation(Profile.this, bottomNavigationView, R.id.home);
         bottomNavigationView.setSelectedItemId(R.id.profile);
 
+        TextView UsernameTextView = findViewById(R.id.profile_name);
+        UserDataFetch.fetchUsername(UsernameTextView);
     }
 }
