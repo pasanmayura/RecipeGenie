@@ -39,7 +39,7 @@ public class UserDataFetch {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e("UserUtils", "Database error: " + error.getMessage());
+                    Log.e("UserDataFetch", "Database error: " + error.getMessage());
                 }
             });
         } else {
