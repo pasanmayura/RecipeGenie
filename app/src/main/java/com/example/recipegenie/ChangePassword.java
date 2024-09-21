@@ -1,10 +1,12 @@
 package com.example.recipegenie; //IM/2021/064
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ public class ChangePassword extends AppCompatActivity {
     //declare the buttons in dialog boxes
     private EditText currentPassword, newPassword;
 
+    private ImageView backIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +103,19 @@ public class ChangePassword extends AppCompatActivity {
                 }
             }
         });
+
+        backIcon = findViewById(R.id.backIcon);
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to the edit profile activity
+                Intent intent = new Intent(ChangePassword.this, Profile.class);
+                startActivity(intent);
+            }
+        });
+
+
         TextView UsernameTextView = findViewById(R.id.profile_name);
         UserDataFetch.fetchUsername(UsernameTextView);
     }
