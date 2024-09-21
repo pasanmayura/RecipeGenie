@@ -6,6 +6,7 @@ public class Users {
     private String userName;
     private String userEmail;
 
+    public Users(){}
 
     public Users(String userId, String userName, String userEmail) {
         this.userId = userId;
