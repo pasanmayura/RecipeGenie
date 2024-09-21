@@ -20,11 +20,11 @@
         app:srcCompat="@drawable/icons8_user_profile_100" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/helloText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
-        android:text="Hello, John"
+        android:text="Hello, "
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,6 +32,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/displayname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="86dp"
+        android:layout_marginEnd="254dp"
+        android:fontFamily="@font/poppins"
+        android:text=""
+        android:textAlignment="viewStart"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/helloText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/helloText"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -45,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.074"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/displayname"
         app:layout_constraintVertical_bias="0.011" />
 
     <TextView
@@ -60,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/displayname"
         app:layout_constraintVertical_bias="0.061" />
 
 
@@ -221,6 +236,8 @@
         app:layout_constraintEnd_toEndOf="@+id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="@+id/bottomNavigationView"
         app:layout_constraintTop_toTopOf="@+id/bottomNavigationView" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
-        android:text="John Doe"
+        android:text=""
         android:textColor="#FFFFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
