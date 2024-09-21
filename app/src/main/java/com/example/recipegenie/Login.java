@@ -71,7 +71,7 @@ public class Login extends AppCompatActivity {
                                 // Redirect to Home activity
                                 Intent intent = new Intent(Login.this, Home.class);
                                 startActivity(intent);
-                                finish(); // Optional: Prevents returning to this activity
+                                finish();
                             } else {
                                 // If sign-in fails, display a message to the user
                                 Toast.makeText(Login.this, "Authentication failed: " + task.getException().getMessage(),
