@@ -3,17 +3,26 @@ package com.example.recipegenie;
 public class Recipe {
     private String title;
     private String description;
-    private String time;
+    private String cooktime;
     private String imageUrl;
+    private String meal;
 
     // Empty constructor required for Firebase
     public Recipe() {}
 
-    public Recipe(String title, String description, String time, String imageUrl) {
+    public Recipe(String title, String description, String cooktime, String imageUrl) {
         this.title = title;
         this.description = description;
-        this.time = time;
+        this.cooktime = cooktime;
         this.imageUrl = imageUrl;
+    }
+
+    public String getMeal() {
+        return meal;
+    }
+
+    public void setMeal(String meal) {
+        this.meal = meal;
     }
 
     // Getters and setters
@@ -33,12 +42,12 @@ public class Recipe {
         this.description = description;
     }
 
-    public String getTime() {
-        return time;
+    public String getCooktime() {
+        return cooktime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setCooktime(String time) {
+        this.cooktime = time;
     }
 
     public String getImageUrl() {
