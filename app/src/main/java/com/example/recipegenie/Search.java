@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -66,7 +67,9 @@ public class Search extends AppCompatActivity {
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavBar.setupBottomNavigation(Search.this, bottomNavigationView, R.id.search);
+        FloatingActionButton fab = findViewById(R.id.addBtn);
+
+        NavBar.setupBottomNavigation(this, bottomNavigationView, R.id.search, fab);
     }
 
     // Method to fetch recipes from Firebase

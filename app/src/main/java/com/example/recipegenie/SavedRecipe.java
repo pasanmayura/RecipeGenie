@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class SavedRecipe extends AppCompatActivity {
 
@@ -25,7 +26,9 @@ public class SavedRecipe extends AppCompatActivity {
 
         // Set up Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavBar.setupBottomNavigation(SavedRecipe.this, bottomNavigationView, R.id.home);
+        FloatingActionButton fab = findViewById(R.id.addBtn);
+
+        NavBar.setupBottomNavigation(this, bottomNavigationView, R.id.bookmark, fab);
         bottomNavigationView.setSelectedItemId(R.id.bookmark);
     }
 }

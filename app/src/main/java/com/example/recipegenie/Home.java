@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,7 +60,9 @@ public class Home extends AppCompatActivity {
 
         // Set up Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavBar.setupBottomNavigation(Home.this, bottomNavigationView, R.id.home);
+        FloatingActionButton fab = findViewById(R.id.addBtn);
+
+        NavBar.setupBottomNavigation(this, bottomNavigationView, R.id.home, fab);
 
         TextView UsernameTextView = findViewById(R.id.displayname);
         UserDataFetch.fetchUsername(UsernameTextView);
