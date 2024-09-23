@@ -32,8 +32,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = recipeList.get(position);
+        holder.mealCard.setText(recipe.getMeal());
         holder.titleCard.setText(recipe.getTitle());
-        holder.descriptionCard.setText(recipe.getDescription());
+        holder.servinginfoCard.setText(recipe.getServingInfo());
         holder.cooktimeCard.setText(recipe.getCooktime());
 
         // Load image using Picasso
@@ -47,13 +48,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
 
-        TextView titleCard, descriptionCard, cooktimeCard;
+        TextView mealCard, titleCard, servinginfoCard, cooktimeCard;
         ImageView imageViewCard;
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
+            mealCard = itemView.findViewById(R.id.mealCard);
             titleCard = itemView.findViewById(R.id.titleCard);
-            descriptionCard = itemView.findViewById(R.id.descriptionCard);
+            servinginfoCard = itemView.findViewById(R.id.servinginfoCard);
             cooktimeCard = itemView.findViewById(R.id.cooktimeCard);
             imageViewCard = itemView.findViewById(R.id.imageViewCard);
         }
