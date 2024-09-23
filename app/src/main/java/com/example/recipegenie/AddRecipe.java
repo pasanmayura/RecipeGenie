@@ -276,7 +276,7 @@ public class AddRecipe extends AppCompatActivity {
         Map<String, Object> recipe = new HashMap<>();
         recipe.put("title", title);
         recipe.put("cooktime", cookTime);
-        recipe.put("serves", serves);
+        recipe.put("servingInfo", serves);
         recipe.put("videoUrl", videoUrl);
         recipe.put("imageUrl", imageUrl);
         recipe.put("meal", mealType);
