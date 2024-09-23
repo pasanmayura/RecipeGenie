@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-
+import androidx.appcompat.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +26,7 @@ public class Home extends AppCompatActivity {
     private RecipeAdapter adapter;
     private List<Recipe> recipeList;
     private DatabaseReference databaseReference;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,27 @@ public class Home extends AppCompatActivity {
 
         TextView UsernameTextView = findViewById(R.id.displayname);
         UserDataFetch.fetchUsername(UsernameTextView);
+
+        searchView = findViewById(R.id.search_view);
+
+        searchView.setOnClickListener(view -> {
+            // Programmatically switch to the search tab
+            bottomNavigationView.setSelectedItemId(R.id.search);
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Navigate to search tab when search is submitted (icon clicked)
+                bottomNavigationView.setSelectedItemId(R.id.search);
+                return true;  // Return true to indicate that the query submission is handled
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Handle text change if needed (optional)
+                return false;
+            }
+        });
     }
     private void fetchBreakfastRecipes() {
         databaseReference.orderByChild("meal").equalTo("Breakfast").addListenerForSingleValueEvent(new ValueEventListener() {
