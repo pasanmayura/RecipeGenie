@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home"
         android:title="Home"
@@ -8,10 +9,12 @@
         android:id="@+id/search"
         android:title="Search"
         android:icon="@drawable/search_icon" />
-    <item
-        android:id="@+id/add"
-        android:title="Add"
-        android:icon="@drawable/add_icon" />
+<!--    <item-->
+<!--        android:id="@+id/add"-->
+<!--        android:title=""-->
+<!--        android:icon="@drawable/add_circle"-->
+<!--        android:iconTint="@color/orange"/>-->
+    <item tools:ignore="MenuTitle" />
     <item
         android:id="@+id/bookmark"
         android:title="Saved"
