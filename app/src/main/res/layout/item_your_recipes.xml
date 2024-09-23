@@ -1,127 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:CardView="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipeCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:clickable="true"
-    android:elevation="4dp"
-    android:focusable="true"
-    CardView:cardCornerRadius="20dp"
-    tools:ignore="DuplicateClickableBoundsCheck">
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/recipe_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
-            android:id="@+id/recipe_info_layout"
-            android:layout_width="348dp"
-            android:layout_height="168dp"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            CardView:layout_constraintBottom_toBottomOf="parent"
-            CardView:layout_constraintEnd_toEndOf="parent"
-            CardView:layout_constraintHorizontal_bias="1.0"
-            CardView:layout_constraintStart_toStartOf="parent"
-            CardView:layout_constraintTop_toTopOf="parent"
-            CardView:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingStart="16dp">
 
-            <ImageView
-                android:id="@+id/recipe_image"
-                android:layout_width="111dp"
-                android:layout_height="110dp"
-                android:layout_marginEnd="5dp"
-                android:scaleType="centerCrop" />
+            <TextView
+                android:id="@+id/recipe_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recipe Type"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/orange"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/recipe_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/recipe_serving_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Serving Info"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/cook_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Time"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
 
             <LinearLayout
-                android:layout_width="221dp"
-                android:layout_height="149dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
 
-                <TextView
-                    android:id="@+id/recipe_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="Recipe Type"
-                    android:textColor="#FB8A22"
-                    android:textSize="12sp" />
+                <ImageView
+                    android:id="@+id/img_edit"
+                    android:layout_width="25dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:contextClickable="true"
+                    android:focusable="true"
+                    app:srcCompat="@drawable/edit_button" />
 
-                <TextView
-                    android:id="@+id/recipe_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="Recipe Name"
-                    android:textSize="18sp" />
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content" />
 
-
-
-
-                <TextView
-                    android:id="@+id/recipe_serving_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Serving Info"
-                    android:textColor="#828282"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="8sp"
-                    />
-
-                <TextView
-                    android:id="@+id/cook_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cook Time"
-                    android:textColor="#828282"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="8sp"/>
-
-                <LinearLayout
-                    android:layout_width="122dp"
-                    android:layout_height="52dp"
-                    android:orientation="horizontal">
-
-
-                    <ImageView
-                        android:id="@+id/img_edit"
-                        android:layout_width="25dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:contextClickable="true"
-                        android:focusable="true"
-                        CardView:srcCompat="@drawable/edit_button"
-                        tools:ignore="SpeakableTextPresentCheck" />
-
-                    <Space
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content" />
-
-
-                    <ImageView
-                        android:id="@+id/img_delete"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:contextClickable="true"
-                        android:focusable="true"
-                        CardView:srcCompat="@drawable/delete_button"
-                        tools:ignore="SpeakableTextPresentCheck" />
-                </LinearLayout>
+                <ImageView
+                    android:id="@+id/img_delete"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:contextClickable="true"
+                    android:focusable="true"
+                    app:srcCompat="@drawable/delete_button" />
 
             </LinearLayout>
 
-
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
 </androidx.cardview.widget.CardView>
