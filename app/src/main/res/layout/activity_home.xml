@@ -183,9 +183,9 @@
 
 
     <ScrollView
-        android:layout_width="363dp"
-        android:layout_height="365dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="356dp"
+        android:layout_height="354dp"
+        android:layout_marginTop="14dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
