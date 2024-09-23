@@ -115,7 +115,7 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
                     public void onClick(View view) {
                         recipeID = recipe.getRecipeID();
 
-                        DatabaseReference recipeRef = FirebaseDatabase.getInstance().getReference("recipes").child(recipeID);
+                        DatabaseReference recipeRef = FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID);
 
                         // Delete the recipe from Firebase
                         recipeRef.removeValue().addOnCompleteListener(task -> {
