@@ -31,6 +31,15 @@
             android:paddingStart="16dp">
 
             <TextView
+                android:id="@+id/mealCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recipe Type"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/orange"
+                android:textSize="12sp"/>
+
+            <TextView
                 android:id="@+id/titleCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,11 +49,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/descriptionCard"
+                android:id="@+id/servinginfoCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Description"
+                android:text="Serving Info"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp" />
 
@@ -56,6 +64,33 @@
                 android:text="Time"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/star" />
+
+                <Space
+                    android:layout_width="5dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/recipe_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Rating"
+                    android:textColor="@color/orange"
+                    android:paddingTop="4dp"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
