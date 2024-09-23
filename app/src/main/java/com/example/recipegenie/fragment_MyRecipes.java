@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,9 +26,10 @@ import java.util.List;
 
 public class fragment_MyRecipes extends Fragment {
 
-    private RecipeAdapterSaved recipeAdapterSaved;  // Changed to RecipeAdapterSaved
+    private RecipeAdapterSaved recipeAdapterSaved;
     private List<Recipe> recipeList;
     private DatabaseReference db;
+    private String currentUserId;  // Store the current user's ID
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,14 +39,16 @@ public class fragment_MyRecipes extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         recipeList = new ArrayList<>();
-        recipeAdapterSaved = new RecipeAdapterSaved(getContext(), recipeList, RecipeAdapterSaved.VIEW_TYPE_MY_RECIPE);  // Updated to RecipeAdapterSaved
+        recipeAdapterSaved = new RecipeAdapterSaved(getContext(), recipeList, RecipeAdapterSaved.VIEW_TYPE_MY_RECIPE);
 
         recyclerView.setAdapter(recipeAdapterSaved);
 
+        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();  // Get the current user's ID
+
         db = FirebaseDatabase.getInstance().getReference("Recipe");
 
-        // Fetch data from Firebase
-        db.addValueEventListener(new ValueEventListener() {
+        // Fetch only the recipes added by the current user
+        db.orderByChild("userId").equalTo(currentUserId).addValueEventListener(new ValueEventListener() {
 
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -54,7 +58,7 @@ public class fragment_MyRecipes extends Fragment {
                     Recipe recipe = snapshot.getValue(Recipe.class);
                     recipeList.add(recipe);
                 }
-                recipeAdapterSaved.notifyDataSetChanged();  // Updated to recipeAdapterSaved
+                recipeAdapterSaved.notifyDataSetChanged();
             }
 
             @Override
@@ -66,3 +70,4 @@ public class fragment_MyRecipes extends Fragment {
         return view;
     }
 }
+
