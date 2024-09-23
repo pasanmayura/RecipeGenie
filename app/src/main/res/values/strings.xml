@@ -2,4 +2,10 @@
     <string name="app_name">RecipeGenie</string>
     <string name="explore_cook">Explore, Cook, and Share\nYour Culinary Creations \n<b>with</b> \n<b><font color="#FFA500" size="32">RecipeGenie!</font></b>
     </string>
+    <string-array name="meal_types">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>All Day</item>
+    </string-array>
 </resources>
