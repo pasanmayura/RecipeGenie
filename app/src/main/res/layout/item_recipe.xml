@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CardView="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:clickable="true"
+    android:elevation="4dp"
+    android:focusable="true"
+    CardView:cardCornerRadius="20dp"
+    tools:ignore="DuplicateClickableBoundsCheck">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/recipe_info_layout"
+            android:layout_width="349dp"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            CardView:layout_constraintBottom_toBottomOf="parent"
+            CardView:layout_constraintEnd_toEndOf="parent"
+            CardView:layout_constraintHorizontal_bias="1.0"
+            CardView:layout_constraintStart_toStartOf="parent"
+            CardView:layout_constraintTop_toTopOf="parent"
+            CardView:layout_constraintVertical_bias="0.0"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/recipe_image"
+                android:layout_width="111dp"
+                android:layout_height="110dp"
+                android:layout_marginEnd="5dp"
+                android:scaleType="centerCrop" />
+
+            <LinearLayout
+                android:layout_width="215dp"
+                android:layout_height="137dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/recipe_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recipe Type"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/recipe_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recipe Name"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/poppins_semibold" />
+
+
+                <TextView
+                    android:id="@+id/recipe_serving_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Serving Info"
+                    android:textColor="#828282"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/cook_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cook Time"
+                    android:textColor="#828282"
+                    android:textSize="8sp"
+                    android:fontFamily="@font/poppins_regular"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/star" />
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/recipe_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Rating"
+                        android:textColor="#FFA500" />
+
+                    <Space
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:id="@+id/bookmarked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="23dp"
+                        android:layout_gravity=""
+                        android:layout_margin="1dp"
+                        android:contentDescription="Bookmark Icon"
+                        android:src="@drawable/orange_saved" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
