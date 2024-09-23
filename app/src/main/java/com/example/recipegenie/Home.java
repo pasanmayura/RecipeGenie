@@ -104,10 +104,14 @@ public class Home extends AppCompatActivity {
 
         searchView = findViewById(R.id.search_view);
 
-        searchView.setOnClickListener(view -> {
-            // Programmatically switch to the search tab
-            bottomNavigationView.setSelectedItemId(R.id.search);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Programmatically switch to the search tab
+                bottomNavigationView.setSelectedItemId(R.id.search);
+            }
         });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
