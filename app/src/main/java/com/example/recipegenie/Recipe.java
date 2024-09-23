@@ -6,6 +6,9 @@ public class Recipe {
     private String cooktime;
     private String imageUrl;
     private String meal;
+    private String servingInfo;
+    private double rating;
+    private String recipeID;
 
     // Empty constructor required for Firebase
     public Recipe() {}
@@ -15,6 +18,39 @@ public class Recipe {
         this.description = description;
         this.cooktime = cooktime;
         this.imageUrl = imageUrl;
+    }
+
+    public Recipe(String title, String meal, String servingInfo, String cooktime, double rating, String imageUrl) {
+        this.title = title;
+        this.meal = meal;
+        this.servingInfo = servingInfo;
+        this.cooktime = cooktime;
+        this.rating = rating;
+        this.imageUrl = imageUrl;
+    }
+
+    public String getServingInfo() {
+        return servingInfo;
+    }
+
+    public void setServingInfo(String servingInfo) {
+        this.servingInfo = servingInfo;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public String getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(String recipeID) {
+        this.recipeID = recipeID;
     }
 
     public String getMeal() {
