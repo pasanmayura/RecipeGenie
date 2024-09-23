@@ -301,8 +301,12 @@ public class AddRecipe extends AppCompatActivity {
         // Update the user's recipe list by appending the new recipe ID
         userRef.child(recipeId).setValue(true)
                 .addOnSuccessListener(aVoid -> {
-                    // Successfully added the recipe ID to the user record
-                    Toast.makeText(AddRecipe.this, "Recipe linked to user successfully!", Toast.LENGTH_SHORT).show();
+
+                    // Navigate to the HomeActivity after success
+                    Intent intent = new Intent(AddRecipe.this, Home.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clears previous activities
+                    startActivity(intent);
+                    finish();
                 })
                 .addOnFailureListener(e -> {
                     // Handle failure
