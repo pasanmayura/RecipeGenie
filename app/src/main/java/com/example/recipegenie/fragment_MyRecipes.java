@@ -53,12 +53,17 @@ public class fragment_MyRecipes extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                recipeList.clear();
+                recipeList.clear(); // Clear the existing list
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Recipe recipe = snapshot.getValue(Recipe.class);
-                    recipeList.add(recipe);
+                    if (recipe != null) {
+                        // Set the recipeID to the key from the snapshot
+                        recipe.setRecipeID(snapshot.getKey());
+                        recipeList.add(recipe); // Add the recipe to the list
+                    }
                 }
-                recipeAdapterSaved.notifyDataSetChanged();
+                recipeAdapterSaved.notifyDataSetChanged(); // Notify the adapter of the data change
             }
 
             @Override

@@ -35,11 +35,21 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
     Button no_button_delete, yes_button_delete;
     Dialog dialog_recipe_delete;
     String recipeID;
+    private DatabaseReference databaseReference;
 
+    // Constructor 1
     public RecipeAdapterSaved(Context context, List<Recipe> recipeList, int viewType) {
         this.recipeList = recipeList;
         this.viewType = viewType;
         this.context = context;
+        databaseReference = FirebaseDatabase.getInstance().getReference("Recipe");  // Initialize here
+    }
+
+    // Constructor 2
+    public RecipeAdapterSaved(Context context, List<Recipe> recipeList) {
+        this.context = context;
+        this.recipeList = recipeList;
+        databaseReference = FirebaseDatabase.getInstance().getReference("Recipe");
     }
 
     @Override
@@ -86,54 +96,19 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
             Picasso.get().load(recipe.getImageUrl()).into(myHolder.imageViewCard);
 
             // Implement your logic for Edit and Delete buttons
-            myHolder.imgEdit.setOnClickListener(v -> {
-                Intent intent = new Intent(context, Profile.class);
-                context.startActivity(intent);
-                // Handle edit action
-            });
+//            myHolder.imgEdit.setOnClickListener(v -> {
+//                Intent intent = new Intent(context, Profile.class);
+//                context.startActivity(intent);
+//                // Handle edit action
+//            });
 
             myHolder.imgDelete.setOnClickListener(v -> {
-                dialog_recipe_delete = new Dialog(context);
-                dialog_recipe_delete.setContentView(R.layout.delete_recipe);
-                dialog_recipe_delete.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog_recipe_delete.getWindow().setBackgroundDrawable(context.getDrawable(R.drawable.dialogbox_bg));
-                dialog_recipe_delete.setCancelable(false);
-
-                // initialize the yes, no buttons in delete account dialog box
-                yes_button_delete = dialog_recipe_delete.findViewById(R.id.yes_button_delete);
-                no_button_delete = dialog_recipe_delete.findViewById(R.id.no_button_delete);
-
-                no_button_delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog_recipe_delete.dismiss(); // close delete dialog
-                    }
-                });
-
-                yes_button_delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        recipeID = recipe.getRecipeID();
-
-                        DatabaseReference recipeRef = FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID);
-
-                        // Delete the recipe from Firebase
-                        recipeRef.removeValue().addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(context, "Recipe deleted successfully!", Toast.LENGTH_SHORT).show();
-
-                                // Remove from local list and notify adapter
-                                recipeList.remove(position);
-                                notifyItemRemoved(position);
-                                notifyItemRangeChanged(position, recipeList.size());
-
-                                dialog_recipe_delete.dismiss(); // Close the dialog
-                            } else {
-                                Toast.makeText(context, "Recipe deletion failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                });
+                if (recipe.getRecipeID() != null && !recipe.getRecipeID().isEmpty()) {
+                    // Pass the correct recipeID and position to deleteRecipe()
+                    deleteRecipe(recipe.getRecipeID(), position);
+                } else {
+                    Log.e("RecipeAdapter", "Recipe ID is null or empty. Cannot delete recipe.");
+                }
             });
         }
     }
@@ -175,4 +150,25 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
             imgDelete = itemView.findViewById(R.id.img_delete);
         }
     }
+
+    // Updated deleteRecipe method
+    private void deleteRecipe(String recipeId, int position) {
+        Log.d("RecipeAdapter", "Attempting to delete recipe with ID: " + recipeId);
+
+        databaseReference.child(recipeId).removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // Remove the item from the list and update the RecyclerView
+                recipeList.remove(position);
+                notifyItemRemoved(position);
+                Toast.makeText(context, "Recipe deleted successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.e("RecipeAdapter", "Failed to delete recipe: " + task.getException());
+                Toast.makeText(context, "Failed to delete recipe", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(e -> {
+            Log.e("RecipeAdapter", "Error deleting recipe: ", e);
+            Toast.makeText(context, "Error deleting recipe: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
 }
+
