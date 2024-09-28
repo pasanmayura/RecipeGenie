@@ -115,14 +115,13 @@ public class Home extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Navigate to search tab when search is submitted (icon clicked)
+                // Navigate to search tab when search is submitted
                 bottomNavigationView.setSelectedItemId(R.id.search);
                 return true;  // Return true to indicate that the query submission is handled
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Handle text change if needed (optional)
                 return false;
             }
         });
