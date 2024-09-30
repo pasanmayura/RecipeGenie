@@ -38,15 +38,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="86dp"
-        android:layout_marginEnd="254dp"
         android:fontFamily="@font/poppins"
         android:text=""
         android:textAlignment="viewStart"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/helloText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/helloText"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView2"
