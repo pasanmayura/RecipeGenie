@@ -26,5 +26,15 @@ public class Users {
         return userEmail;
     }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 }
