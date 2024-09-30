@@ -78,7 +78,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/save_button"
         android:layout_width="306dp"
         android:layout_height="50dp"
         android:backgroundTint="#FB8A22"
