@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,11 @@ public class fragment_MyRecipes extends Fragment {
                     if (recipe != null) {
                         // Set the recipeID to the key from the snapshot
                         recipe.setRecipeID(snapshot.getKey());
-                        recipeList.add(recipe); // Add the recipe to the list
+                        if (recipe.getImageUrl() != null) {
+                            recipeList.add(recipe);  // Add the recipe to the list
+                        } else {
+                            Log.e("FirebaseError", "Image URL is missing for recipe: " + recipe.getTitle());
+                        } // Add the recipe to the list
                     }
                 }
                 recipeAdapterSaved.notifyDataSetChanged(); // Notify the adapter of the data change

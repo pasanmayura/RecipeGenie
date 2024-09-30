@@ -21,6 +21,8 @@ import java.util.List;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -105,7 +107,7 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
             myHolder.imgDelete.setOnClickListener(v -> {
                 if (recipe.getRecipeID() != null && !recipe.getRecipeID().isEmpty()) {
                     // Pass the correct recipeID and position to deleteRecipe()
-                    deleteRecipe(recipe.getRecipeID(), position);
+                    deleteRecipe(recipe.getRecipeID(), recipe.getImageUrl(), position);
                 } else {
                     Log.e("RecipeAdapter", "Recipe ID is null or empty. Cannot delete recipe.");
                 }
@@ -152,23 +154,32 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     // Updated deleteRecipe method
-    private void deleteRecipe(String recipeId, int position) {
-        Log.d("RecipeAdapter", "Attempting to delete recipe with ID: " + recipeId);
-
+    private void deleteRecipe(String recipeId, String imageUrl, int position) {
+        // Reference to the specific recipe in the database
         databaseReference.child(recipeId).removeValue().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                // Remove the item from the list and update the RecyclerView
+                // Delete the image from Firebase Storage
+                deleteImageFromStorage(imageUrl);
+                Toast.makeText(context, "Recipe deleted successfully", Toast.LENGTH_SHORT).show();
                 recipeList.remove(position);
                 notifyItemRemoved(position);
-                Toast.makeText(context, "Recipe deleted successfully", Toast.LENGTH_SHORT).show();
             } else {
-                Log.e("RecipeAdapter", "Failed to delete recipe: " + task.getException());
                 Toast.makeText(context, "Failed to delete recipe", Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(e -> {
-            Log.e("RecipeAdapter", "Error deleting recipe: ", e);
-            Toast.makeText(context, "Error deleting recipe: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
+
+    private void deleteImageFromStorage(String imageUrl) {
+        // Create a reference to the image to delete
+        StorageReference imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl);
+        imageRef.delete().addOnSuccessListener(aVoid -> {
+            // File deleted successfully
+            Log.d("RecipeAdapter", "Image deleted successfully from storage.");
+        }).addOnFailureListener(exception -> {
+            // Handle any errors
+            Log.e("RecipeAdapter", "Failed to delete image: " + exception.getMessage());
+        });
+    }
+
 }
 
