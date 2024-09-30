@@ -111,8 +111,9 @@ public class ChangePassword extends AppCompatActivity {
             public void onClick(View v) {
                 // Navigate to the edit profile activity
                 Intent intent = new Intent(ChangePassword.this, Profile.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clears previous activities
                 startActivity(intent);
-            }
+                finish();            }
         });
 
 
