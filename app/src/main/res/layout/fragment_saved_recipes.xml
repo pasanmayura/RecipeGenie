@@ -13,25 +13,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <SearchView
+<!--    <SearchView-->
+<!--        android:id="@+id/searchView"-->
+<!--        android:layout_width="337dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_marginStart="9dp"-->
+<!--        android:layout_marginTop="88dp"-->
+<!--        android:layout_marginEnd="14dp"-->
+<!--        android:layout_marginBottom="644dp"-->
+<!--        android:background="@drawable/search_view_bg"-->
+<!--        android:clickable="true"-->
+<!--        android:contextClickable="true"-->
+<!--        android:iconifiedByDefault="false"-->
+<!--        android:queryHint="Search any recipe"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
+
+
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
-        android:layout_width="337dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="644dp"
+        android:layout_width="334dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="11dp"
         android:background="@drawable/search_view_bg"
-        android:clickable="true"
-        android:contextClickable="true"
-        android:iconifiedByDefault="false"
         android:queryHint="Search any recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.13" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
