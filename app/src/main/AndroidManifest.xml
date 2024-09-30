@@ -16,13 +16,15 @@
         tools:targetApi="31">
         <activity
             android:name=".SavedRecipe"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".AddRecipe"
             android:exported="false" />
         <activity
             android:name=".Search"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".Home"
             android:exported="true">
