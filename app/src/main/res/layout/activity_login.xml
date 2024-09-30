@@ -101,7 +101,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailInput"
         android:layout_width="317dp"
-        android:layout_height="52dp"
+        android:layout_height="55dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/passwordInputLayout"
@@ -116,13 +116,14 @@
             android:layout_height="match_parent"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSet" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewSet"
+            android:textSize="12sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInputLayout"
         android:layout_width="317dp"
-        android:layout_height="52dp"
+        android:layout_height="55dp"
         android:layout_marginTop="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.627"
@@ -135,13 +136,14 @@
             android:layout_height="match_parent"
             android:hint="Password"
             android:inputType="textPassword"
-            app:layout_constraintTop_toBottomOf="@+id/emailInput" />
+            app:layout_constraintTop_toBottomOf="@+id/emailInput"
+            android:textSize="12sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/forgotPasswordText"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="142dp"
+        android:layout_height="30dp"
         android:layout_marginTop="278dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/poppins_semibold"
@@ -154,7 +156,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/buttonLogin"
