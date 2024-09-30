@@ -97,21 +97,37 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
             // Load image using Picasso
             Picasso.get().load(recipe.getImageUrl()).into(myHolder.imageViewCard);
 
-            // Implement your logic for Edit and Delete buttons
-//            myHolder.imgEdit.setOnClickListener(v -> {
-//                Intent intent = new Intent(context, Profile.class);
-//                context.startActivity(intent);
-//                // Handle edit action
-//            });
-
             myHolder.imgDelete.setOnClickListener(v -> {
-                if (recipe.getRecipeID() != null && !recipe.getRecipeID().isEmpty()) {
-                    // Pass the correct recipeID and position to deleteRecipe()
-                    deleteRecipe(recipe.getRecipeID(), recipe.getImageUrl(), position);
-                } else {
-                    Log.e("RecipeAdapter", "Recipe ID is null or empty. Cannot delete recipe.");
-                }
+                // Show the confirmation dialog
+                dialog_recipe_delete = new Dialog(context);
+                dialog_recipe_delete.setContentView(R.layout.delete_recipe);
+                dialog_recipe_delete.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog_recipe_delete.getWindow().setBackgroundDrawable(context.getDrawable(R.drawable.dialogbox_bg));
+                dialog_recipe_delete.setCancelable(false); // Prevent dismissal by tapping outside
+
+                // Initialize the yes, no buttons in delete dialog
+                yes_button_delete = dialog_recipe_delete.findViewById(R.id.yes_button_delete);
+                no_button_delete = dialog_recipe_delete.findViewById(R.id.no_button_delete);
+
+                // Handle No button - dismiss dialog
+                no_button_delete.setOnClickListener(view -> dialog_recipe_delete.dismiss());
+
+                // Handle Yes button - confirm delete
+                yes_button_delete.setOnClickListener(view -> {
+                    recipeID = recipe.getRecipeID();
+                    if (recipeID != null && !recipeID.isEmpty()) {
+                        // Call the delete method only after confirmation
+                        deleteRecipe(recipeID, recipe.getImageUrl(), position);
+                        dialog_recipe_delete.dismiss();  // Close dialog once deletion is done
+                    } else {
+                        Log.e("RecipeAdapter", "Recipe ID is null or empty. Cannot delete recipe.");
+                    }
+                });
+
+                // Show the dialog
+                dialog_recipe_delete.show();
             });
+
         }
     }
 
