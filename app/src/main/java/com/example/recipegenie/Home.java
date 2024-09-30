@@ -1,8 +1,10 @@
 package com.example.recipegenie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.widget.SearchView;
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ public class Home extends AppCompatActivity {
     private List<Recipe> recipeList;
     private DatabaseReference databaseReference;
     private SearchView searchView;
+    private ImageView profileIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +128,19 @@ public class Home extends AppCompatActivity {
                 return false;
             }
         });
+
+        profileIcon = findViewById(R.id.imageView_profile);
+
+        profileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                // Navigate to the edit profile activity
+                Intent intent = new Intent(Home.this, Profile.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clears previous activities
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     private void fetchBreakfastRecipes() {
         databaseReference.orderByChild("meal").equalTo("Breakfast").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -201,4 +217,6 @@ public class Home extends AppCompatActivity {
             }
         });
     }
+
+
 }
