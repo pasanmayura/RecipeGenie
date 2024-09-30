@@ -54,7 +54,7 @@ public class Forgot_Password extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the SecondActivity
-                Intent intent = new Intent(Forgot_Password.this, PasswordReset.class);
+                Intent intent = new Intent(Forgot_Password.this, Login.class);
                 startActivity(intent);
             }
         });
