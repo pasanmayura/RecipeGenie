@@ -48,5 +48,6 @@ dependencies {
     annotationProcessor(libs.glideCompiler)
     implementation(libs.recyclerview)
     implementation(libs.picasso)
+    implementation(libs.play.services.auth)
 }
 
