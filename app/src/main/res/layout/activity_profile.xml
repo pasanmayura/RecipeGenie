@@ -45,7 +45,7 @@
         android:layout_width="160dp"
         android:layout_height="126dp"
         android:gravity="center"
-        android:src="@drawable/person_icon"
+        android:src="@drawable/icons8_user_profile_100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.523"
@@ -54,7 +54,6 @@
         app:layout_constraintVertical_bias="0.155" />
     <!-- profile name-->
 
-    <!-- contains the buttons -->
     <TextView
         android:id="@+id/profile_name"
         android:layout_width="wrap_content"
