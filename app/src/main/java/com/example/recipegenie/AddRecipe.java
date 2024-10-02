@@ -52,7 +52,7 @@ public class AddRecipe extends AppCompatActivity {
         // Initialize Firebase and Firebase Database
         FirebaseApp.initializeApp(this);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference recipeRef = database.getReference("Recipe");  // Reference to the "recipes" node
+        DatabaseReference recipeRef = database.getReference("Recipe");  // Reference to the "recipes"
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
