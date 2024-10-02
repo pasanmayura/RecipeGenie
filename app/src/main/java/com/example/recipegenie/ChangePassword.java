@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ChangePassword extends AppCompatActivity {
 
-    // Firebase authentication instance to get the current user
+    // Firebase authentication to get the current user
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     //declare the change password button
@@ -115,7 +115,6 @@ public class ChangePassword extends AppCompatActivity {
                 startActivity(intent);
                 finish();            }
         });
-
 
         TextView UsernameTextView = findViewById(R.id.profile_name);
         UserDataFetch.fetchUsername(UsernameTextView);
