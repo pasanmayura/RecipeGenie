@@ -98,8 +98,8 @@
             android:textSize="16sp"
             android:translationZ="8dp"
             app:cornerRadius="15dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:stateListAnimator="@animator/elevated_button"/>
@@ -117,8 +117,8 @@
             android:textSize="16sp"
             android:translationZ="8dp"
             app:cornerRadius="15dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:stateListAnimator="@animator/elevated_button"/>
@@ -136,8 +136,8 @@
             android:textSize="16sp"
             android:translationZ="8dp"
             app:cornerRadius="15dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:stateListAnimator="@animator/elevated_button"/>
@@ -155,8 +155,8 @@
             android:textSize="16sp"
             android:translationZ="8dp"
             app:cornerRadius="15dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:stateListAnimator="@animator/elevated_button"/>
