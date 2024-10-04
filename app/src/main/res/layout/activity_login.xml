@@ -177,7 +177,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle"
+        android:stateListAnimator="@animator/elevated_button"/>
 
     <Button
         android:id="@+id/buttonRegister"
@@ -198,7 +199,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/white_rectangle" />
+        app:layout_constraintTop_toTopOf="@+id/white_rectangle"
+        android:stateListAnimator="@animator/elevated_button"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -101,7 +101,8 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:stateListAnimator="@animator/elevated_button"/>
 
         <Button
             android:id="@+id/change_password"
@@ -119,7 +120,8 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:stateListAnimator="@animator/elevated_button"/>
 
         <Button
             android:id="@+id/logout"
@@ -137,7 +139,8 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:stateListAnimator="@animator/elevated_button"/>
 
         <Button
             android:id="@+id/delete_account"
@@ -155,7 +158,8 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:stateListAnimator="@animator/elevated_button"/>
     </LinearLayout>
 
     <ImageView
@@ -197,6 +201,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="169dp"
         android:layout_marginBottom="16dp"
+        android:importantForAccessibility="no"
         android:src="@drawable/add_icon"
         app:backgroundTint="@color/orange"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
