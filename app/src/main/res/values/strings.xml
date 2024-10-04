@@ -8,4 +8,5 @@
         <item>Dinner</item>
         <item>All Day</item>
     </string-array>
+    <string name="default_web_client_id">546603590456-oqs4rtp6aako55i11760l4nt4r22odot.apps.googleusercontent.com</string>
 </resources>
