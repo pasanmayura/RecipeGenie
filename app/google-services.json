@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "546603590456",
+    "firebase_url": "https://recipegenie-81451-default-rtdb.firebaseio.com",
     "project_id": "recipegenie-81451",
     "storage_bucket": "recipegenie-81451.appspot.com"
   },
@@ -12,7 +13,28 @@
           "package_name": "com.example.recipegenie"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "546603590456-a8fnep57f5jrh8c8snc6jpv73e2i690j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.recipegenie",
+            "certificate_hash": "6335fcef1feb1c78d3557fba1e39763591e32067"
+          }
+        },
+        {
+          "client_id": "546603590456-bf6no4ndc6u7180096sojja9dq42eltr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.recipegenie",
+            "certificate_hash": "c00b796b530be960768e88b995a0268aa5e12919"
+          }
+        },
+        {
+          "client_id": "546603590456-oqs4rtp6aako55i11760l4nt4r22odot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDqkLW-eXYAGrJoW4rPlkwbGyW2nLko2gE"
@@ -20,7 +42,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "546603590456-oqs4rtp6aako55i11760l4nt4r22odot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
