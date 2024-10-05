@@ -49,6 +49,7 @@ public class fragment_MyRecipes extends Fragment {
         recipeAdapterSaved = new RecipeAdapterSaved(getContext(),filteredList,RecipeAdapterSaved.VIEW_TYPE_MY_RECIPE);
         recyclerView.setAdapter(recipeAdapterSaved);
 
+        // IM/2021/020 - M.A.P.M Karunathilaka
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         db = FirebaseDatabase.getInstance().getReference("Users").child(currentUserId);
 
@@ -70,6 +71,8 @@ public class fragment_MyRecipes extends Fragment {
                 Toast.makeText(getContext(), "Failed to load saved recipes", Toast.LENGTH_SHORT).show();
             }
         });
+        // IM/2021/020 - M.A.P.M Karunathilaka
+
 
 
         // Set up SearchView listener to filter recipes based on query
@@ -89,6 +92,7 @@ public class fragment_MyRecipes extends Fragment {
         return view;
     }
 
+    // IM/2021/020 - M.A.P.M Karunathilaka
     private void fetchRecipeById(String recipeId) {
         DatabaseReference recipeDb = FirebaseDatabase.getInstance().getReference("Recipe").child(recipeId);
         recipeDb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -110,23 +114,48 @@ public class fragment_MyRecipes extends Fragment {
             }
         });
     }
+    // IM/2021/020 - M.A.P.M Karunathilaka
 
+    //IM/2021/058 - K.D Kolonnage
     // Filter recipes based on the search query
-    private  void filterRecipes(String query) {
-        filteredList.clear();
+    private void filterRecipes(String query) {
+        filteredList.clear(); //clear current list
 
-        // check whether the search query is not empty
-        if(query == null || query.trim().isEmpty()){
+        // Check if search bar is empty
+        if (query == null || query.trim().isEmpty()) {
             filteredList.addAll(recipeList);
         } else {
-            for (Recipe recipe : recipeList)
-            {
-                if (recipe.getTitle() != null && recipe.getTitle().toLowerCase().contains(query.toLowerCase())){
-                    filteredList.add(recipe);
+            String[] queryWords = query.trim().toLowerCase().split("\\s+");
+            for (Recipe recipe : recipeList) {
+                if (recipe.getTitle() != null) {
+                    String lowerCaseTitle = recipe.getTitle().toLowerCase();
+                    String[] titleWords = lowerCaseTitle.split("\\s+");
+
+                    // Check if the recipe first letter matching with the user inputs
+                    if (titleWords.length >= queryWords.length) {
+                        boolean match = true;
+                        for (int i = 0; i < queryWords.length; i++) {
+                            if (!titleWords[i].startsWith(queryWords[i])) {
+                                match = false;
+                                break;
+                            }
+                        }
+                        if (match) {
+                            filteredList.add(recipe); // Add recipe if found
+                            continue;
+                        }
+                    }
+
+                    // substring search
+                    if (lowerCaseTitle.contains(query.trim().toLowerCase())) {
+                        filteredList.add(recipe); // Add recipe if found
+                    }
                 }
             }
         }
         recipeAdapterSaved.notifyDataSetChanged();
     }
+    //IM/2021/058 - K.D Kolonnage
 }
 
+// IM/2021/009 - Y.A.D.S.C.Basnayake
