@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--IM/2021/009-->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -46,6 +48,7 @@
         android:id="@+id/view_pager"
         android:layout_below="@+id/tab_layout"/>
 
+    <!--IM/2021/020-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
@@ -74,5 +77,8 @@
         app:layout_constraintEnd_toEndOf="@+id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="@+id/bottomNavigationView"
         app:layout_constraintTop_toTopOf="@+id/bottomNavigationView" />
+    <!--IM/2021/020-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--IM/2021/009-->
