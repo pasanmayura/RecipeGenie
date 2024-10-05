@@ -64,7 +64,10 @@ public class signup extends AppCompatActivity {
         signup_Email = findViewById(R.id.signupemail);
         signup_Password = findViewById(R.id.signupPassword);
         confirm_Password = findViewById(R.id.confirmPassword);
-        googleSigninOption = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
+        googleSigninOption = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
         googleSigninClient = GoogleSignIn.getClient(this, googleSigninOption);
     }
 
@@ -75,7 +78,6 @@ public class signup extends AppCompatActivity {
 
     // function onclick on signup button
     public void Signup(View view) {
-
         // get inputs and convert to string
         String password = signup_Password.getText().toString().trim();
         String email = signup_Email.getText().toString().trim();
@@ -158,13 +160,13 @@ public class signup extends AppCompatActivity {
     }
 
     // Handle the result of the Google sign-in process
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
             // Retrieve the GoogleSignInAccount from the sign-in result intent
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
             handleSignInResult(task);
         }
     }
@@ -196,11 +198,31 @@ public class signup extends AppCompatActivity {
                             Toast.makeText(signup.this, "Authentication Successful", Toast.LENGTH_SHORT).show();
                             // Get the currently signed-in user
                             FirebaseUser user = auth.getCurrentUser();
-                            // Navigate to the main login screen
-                            startActivity(new Intent(signup.this, Home.class));
+                            userID = user.getUid(); // Get user ID
+
+                            // Create user document in Realtime Database
+                            Map<String, Object> userMap = new HashMap<>();
+                            userMap.put("userName", user.getDisplayName());
+                            userMap.put("userEmail", user.getEmail());
+
+                            databaseReference.child(userID).setValue(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    // Successful sign-in and data storage
+                                    Toast.makeText(signup.this, "Google Sign-in successful", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(signup.this, Home.class));
+                                }
+
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(signup.this, "Failed to save user data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         } else {
                             // Show an error message if authentication failed
-                            Toast.makeText(signup.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(signup.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
