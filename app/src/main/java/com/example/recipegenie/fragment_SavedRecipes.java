@@ -114,7 +114,7 @@ public class fragment_SavedRecipes extends Fragment {
     }
     // IM/2021/020 - M.A.P.M Karunathilaka
 
-    //IM/2021/058 - K.D Kolonnage
+    //IM-2021-058 - K.D. Kolonnage
     // Filter recipes based on the search query
     private void filterRecipes(String query) {
         filteredList.clear(); // clear current list
@@ -153,6 +153,6 @@ public class fragment_SavedRecipes extends Fragment {
         }
         recipeAdapterSaved.notifyDataSetChanged();
     }
-    //IM/2021/058 - K.D Kolonnage
+//IM-2021-058 - K.D. Kolonnage
 }
 // IM/2021/009 - Y.A.D.S.C.Basnayake

@@ -1,4 +1,4 @@
-//IM/2021/058 - K.D. Kolonnage
+//IM-2021-058 - K.D. Kolonnage
 package com.example.recipegenie;
 
 import android.os.Bundle;
@@ -147,4 +147,4 @@ public class Search extends AppCompatActivity {
 
 }
 
-//IM/2021/058 - K.D Kolonnage
+//IM-2021-058 - K.D. Kolonnage
