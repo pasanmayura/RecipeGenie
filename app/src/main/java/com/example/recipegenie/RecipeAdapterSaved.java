@@ -108,8 +108,10 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
             // Load image using Picasso
             Picasso.get().load(recipe.getImageUrl()).into(myHolder.imageViewCard);
 
-            // On card click, pass the recipeID to the ViewRecipe activity
             myHolder.itemView.setOnClickListener(view -> {
+
+                Log.d("RecipeAdapter", "Clicked Recipe ID: " + recipe.getRecipeID());
+
                 Intent intent = new Intent(context, ViewRecipe.class);
                 intent.putExtra("RECIPE_ID", recipe.getRecipeID());  // Pass the recipeID
                 context.startActivity(intent);  // Start the new activity

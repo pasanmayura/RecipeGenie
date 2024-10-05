@@ -99,6 +99,7 @@ public class fragment_SavedRecipes extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Recipe recipe = snapshot.getValue(Recipe.class);
                 if (recipe != null) {
+                    recipe.setRecipeID(recipeId); // Set the recipeID here
                     recipeList.add(recipe);
                     filteredList.add(recipe); // initially show all the recipes
                     recipeAdapterSaved.notifyDataSetChanged();
