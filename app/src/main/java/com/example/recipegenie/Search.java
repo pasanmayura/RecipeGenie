@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,6 +66,17 @@ public class Search extends AppCompatActivity {
                 return true;
             }
         });
+
+        // IM/2021/020 - M.A.P.M Karunathilaka
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        FloatingActionButton fab = findViewById(R.id.addBtn);
+
+        NavBar.setupBottomNavigation(this, bottomNavigationView, R.id.home, fab);
+        bottomNavigationView.setSelectedItemId(R.id.search);
+
+        // IM/2021/020 - M.A.P.M Karunathilaka
+
     }
 
     // Method to fetch recipes from Firebase
@@ -104,7 +118,6 @@ public class Search extends AppCompatActivity {
     }
 
     // Filter recipes
-    // filter recipes
     private void filterRecipes(String query) {
         filteredList.clear(); // clear current list
 

@@ -177,6 +177,8 @@ public class Profile extends AppCompatActivity {
         });*/
         //IM/2021/064
 
+        // IM/2021/020 - M.A.P.M Karunathilaka
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         FloatingActionButton fab = findViewById(R.id.addBtn);
 
@@ -185,5 +187,8 @@ public class Profile extends AppCompatActivity {
 
         TextView UsernameTextView = findViewById(R.id.profile_name);
         UserDataFetch.fetchUsername(UsernameTextView);
+
+        // IM/2021/020 - M.A.P.M Karunathilaka
+
     }
 }
