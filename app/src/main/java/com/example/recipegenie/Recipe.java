@@ -12,7 +12,6 @@ public class Recipe {
     private double averageRating;
     private String recipeID;
 
-    // Empty constructor required for Firebase
     public Recipe() {}
 
     public Recipe(String title, String description, String cooktime, String imageUrl) {

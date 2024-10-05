@@ -7,7 +7,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class FirebaseUserDetails {
-    // Reference to the current user's node in Firebase Realtime Database
+    // Reference to the current user
     public static DatabaseReference currentUserDetails() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String userId = auth.getCurrentUser().getUid();  // Get the current user's UID

@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Profile extends AppCompatActivity {
 
-    // Firebase authentication instance to get the current user and handle authentication actions
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 

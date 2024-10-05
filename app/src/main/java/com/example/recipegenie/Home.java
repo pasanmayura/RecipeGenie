@@ -48,19 +48,14 @@ public class Home extends AppCompatActivity {
         // Set up Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("Recipe");
 
-        // Fetch data from Firebase
         fetchAllRecipes();
 
-        // Set up button listeners for different meals
         setupMealButtons();
 
-        // Set up Bottom Navigation
         setupBottomNavigation();
 
-        // Setup search view
         setupSearchView();
 
-        // Set up profile icon click listener
         setupProfileIcon();
     }
 
@@ -108,7 +103,7 @@ public class Home extends AppCompatActivity {
                 recipeList.clear();
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     Recipe recipe = childSnapshot.getValue(Recipe.class);
-                    String recipeID = childSnapshot.getKey(); // Correctly get the key here
+                    String recipeID = childSnapshot.getKey(); // Get the key here
                     if (recipe != null) {
                         recipe.setRecipeID(recipeID);  // Set the recipeID
                         recipeList.add(recipe);

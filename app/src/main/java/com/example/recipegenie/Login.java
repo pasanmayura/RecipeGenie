@@ -66,11 +66,11 @@ public class Login extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(Login.this, task -> {
                             if (task.isSuccessful()) {
-                                // Sign-in success, navigate to Home activity
+                                // Sign-in success, navigate to Home
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
 
-                                // Redirect to Home activity
+                                // Redirect to Home
                                 Intent intent = new Intent(Login.this, Home.class);
                                 startActivity(intent);
                                 finish();

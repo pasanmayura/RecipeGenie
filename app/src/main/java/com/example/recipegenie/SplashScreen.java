@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 1500; // 3 seconds
+    private static int SPLASH_TIME_OUT = 1500; // 1.5 seconds
     private FirebaseAuth firebaseAuth;
 
 
@@ -32,16 +32,14 @@ public class SplashScreen extends AppCompatActivity {
 
                 // Check if the user is already logged in
                 if (currentUser != null) {
-                    // User is logged in, redirect to home screen
-                    Intent intent = new Intent(SplashScreen.this, Home.class); // Change HomeActivity to your home screen class
+                    Intent intent = new Intent(SplashScreen.this, Home.class);
                     startActivity(intent);
                 } else {
-                    // User is not logged in, show the get started/login screen
                     Intent intent = new Intent(SplashScreen.this, Login.class);
                     startActivity(intent);
                 }
 
-                // Close the splash activity so it won't show again on back press
+                // Close the splash activity
                 finish();
 
             }

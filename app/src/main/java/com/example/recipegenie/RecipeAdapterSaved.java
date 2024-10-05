@@ -1,7 +1,5 @@
 package com.example.recipegenie;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -161,10 +159,9 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
                 // Create an Intent to navigate to the activity
                 Intent intent = new Intent(context, editRecipe.class);
 
-                // Add the recipe ID as an extra to the Intent
+                // Add the recipe ID
                 intent.putExtra("RECIPE_ID", recipeID);
 
-                // Start the Profile (Edit) activity
                 context.startActivity(intent);
             });
 
@@ -209,7 +206,6 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    // Updated deleteRecipe method
     private void deleteRecipe(String recipeId, String imageUrl, int position) {
         // Reference to the specific recipe in the database
         databaseReference.child(recipeId).removeValue().addOnCompleteListener(task -> {
@@ -229,13 +225,11 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
         // Create a reference to the image to delete
         StorageReference imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl);
         imageRef.delete().addOnSuccessListener(aVoid -> {
-            // File deleted successfully
             Log.d("RecipeAdapter", "Image deleted successfully from storage.");
         }).addOnFailureListener(exception -> {
             // Handle any errors
             Log.e("RecipeAdapter", "Failed to delete image: " + exception.getMessage());
         });
     }
-
 }
 

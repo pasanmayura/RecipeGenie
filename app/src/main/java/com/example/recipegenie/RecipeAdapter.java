@@ -18,10 +18,10 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
     private List<Recipe> recipeList;
-    private Context context;  // Store the context to use for starting the new activity
+    private Context context;
 
     public RecipeAdapter(Context context, List<Recipe> recipeList) {
-        this.context = context;  // Initialize the context in the constructor
+        this.context = context;
         this.recipeList = recipeList;
     }
 

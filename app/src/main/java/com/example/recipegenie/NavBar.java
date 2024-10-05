@@ -23,7 +23,6 @@ public class NavBar {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
 
-                // Using if-else to handle navigation
                 if (itemId == R.id.home) {
                     if (!(activity instanceof Home)) {
                         activity.startActivity(new Intent(activity, Home.class));
