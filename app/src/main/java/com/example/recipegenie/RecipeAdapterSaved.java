@@ -72,6 +72,7 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
+
     @SuppressLint("UseCompatLoadingForDrawables")
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Recipe recipe = recipeList.get(position);
@@ -87,6 +88,16 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
             // Load image using Picasso
             Picasso.get().load(recipe.getImageUrl()).into(savedHolder.imageViewCard);
 
+            // On card click, pass the recipeID to the ViewRecipe activity
+            savedHolder.itemView.setOnClickListener(view -> {
+
+                Log.d("RecipeAdapter", "Clicked Recipe ID: " + recipe.getRecipeID());
+
+                Intent intent = new Intent(context, ViewRecipe.class);
+                intent.putExtra("RECIPE_ID", recipe.getRecipeID());  // Pass the recipeID
+                context.startActivity(intent);  // Start the new activity
+            });
+
         } else {
             MyRecipeViewHolder myHolder = (MyRecipeViewHolder) holder;
             myHolder.nameCard.setText(recipe.getTitle());
@@ -96,6 +107,13 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             // Load image using Picasso
             Picasso.get().load(recipe.getImageUrl()).into(myHolder.imageViewCard);
+
+            // On card click, pass the recipeID to the ViewRecipe activity
+            myHolder.itemView.setOnClickListener(view -> {
+                Intent intent = new Intent(context, ViewRecipe.class);
+                intent.putExtra("RECIPE_ID", recipe.getRecipeID());  // Pass the recipeID
+                context.startActivity(intent);  // Start the new activity
+            });
 
             myHolder.imgDelete.setOnClickListener(v -> {
                 // Show the confirmation dialog
