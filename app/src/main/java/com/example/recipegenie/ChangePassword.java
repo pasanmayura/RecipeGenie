@@ -1,5 +1,6 @@
-package com.example.recipegenie; //IM/2021/064
+package com.example.recipegenie; //IM/2021/064 - Udani
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,6 +35,7 @@ public class ChangePassword extends AppCompatActivity {
 
     private ImageView backIcon;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class ChangePassword extends AppCompatActivity {
 
         //initialize EditText fields for current and new password inputs and button
         currentPassword = findViewById(R.id.editCurrentPassword);
-        newPassword = findViewById(R.id.editEmail); //in XML editEmail should be changed to a suitable name
+        newPassword = findViewById(R.id.editNewPassword);
         ChangePasswordButton = findViewById(R.id.change_password_button);
 
         ChangePasswordButton.setOnClickListener(new View.OnClickListener() {
@@ -63,12 +65,13 @@ public class ChangePassword extends AppCompatActivity {
                     return;
                 }
 
-                if(NewPassword.length() <6){
-                    newPassword.setError("Password should have at least 6 characters");
+                //validate the characters
+                if (!(passwordisvalidation(NewPassword))) {
+                    newPassword.setError("Password must contain both letters and numbers and minimum 6 characters");
                     return;
                 }
 
-                // If user is logged in and email is available, proceed with authentication
+                // If user is logged in and email is available, do the authentication
                 if(user != null && user.getEmail() != null) {
                     // Create an AuthCredential object with the current email and password
                     AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), CurrentPassword);
@@ -78,7 +81,7 @@ public class ChangePassword extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                // If re-authentication succeeds, proceed to update the user's password
+                                // If re-authentication is successful the update the user's password
                                 user.updatePassword(NewPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -104,6 +107,8 @@ public class ChangePassword extends AppCompatActivity {
             }
         });
 
+
+
         backIcon = findViewById(R.id.backIcon);
 
         backIcon.setOnClickListener(new View.OnClickListener() {
@@ -119,4 +124,22 @@ public class ChangePassword extends AppCompatActivity {
         TextView UsernameTextView = findViewById(R.id.profile_name);
         UserDataFetch.fetchUsername(UsernameTextView);
     }
-} //IM-2021-064
+
+    // password validation method
+    public boolean passwordisvalidation(String newPassword) {
+        // Check for minimum length of 6 characters
+        if (newPassword.length() < 6) {
+            return false;
+        }
+        // Check for at least one letter (either case)
+        if (!newPassword.matches(".*[A-Za-z].*")) {
+            return false;
+        }
+        // Check for at least one digit
+        if (!newPassword.matches(".*\\d.*")) {
+            return false;
+        }
+
+        return true;
+    }
+} //IM-2021-064- Udani
