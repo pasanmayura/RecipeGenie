@@ -81,7 +81,8 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
             savedHolder.typeCard.setText(recipe.getMeal());
             savedHolder.servingInfoCard.setText(recipe.getServingInfo());
             savedHolder.timeCard.setText(recipe.getCooktime());
-            savedHolder.ratingCard.setText(String.valueOf(recipe.getAverageRating()));
+            savedHolder.ratingCard.setText(String.format("%.1f", recipe.getAverageRating()));
+
 
             // Load image using Picasso
             Picasso.get().load(recipe.getImageUrl()).into(savedHolder.imageViewCard);

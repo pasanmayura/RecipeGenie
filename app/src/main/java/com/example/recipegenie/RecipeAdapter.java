@@ -39,7 +39,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.titleCard.setText(recipe.getTitle());
         holder.servinginfoCard.setText(recipe.getServingInfo());
         holder.cooktimeCard.setText(recipe.getCooktime());
-        holder.ratingCard.setText(String.valueOf(recipe.getAverageRating()));
+        holder.ratingCard.setText(String.format("%.1f", recipe.getAverageRating()));
 
         // Load image using Picasso
         Picasso.get().load(recipe.getImageUrl()).into(holder.imageViewCard);
