@@ -119,7 +119,6 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             // IM/2021/020 - M.A.P.M Karunathilaka
 
-
             myHolder.imgDelete.setOnClickListener(v -> {
                 // Show the confirmation dialog
                 dialog_recipe_delete = new Dialog(context);

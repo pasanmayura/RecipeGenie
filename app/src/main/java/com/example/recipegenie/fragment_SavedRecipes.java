@@ -48,7 +48,6 @@ public class fragment_SavedRecipes extends Fragment {
         recipeAdapterSaved = new RecipeAdapterSaved(getContext(),filteredList,RecipeAdapterSaved.VIEW_TYPE_SAVED_RECIPE);
         recyclerView.setAdapter(recipeAdapterSaved);
 
-        // IM/2021/020 - M.A.P.M Karunathilaka
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         db = FirebaseDatabase.getInstance().getReference("Users").child(currentUserId);
 
@@ -70,7 +69,7 @@ public class fragment_SavedRecipes extends Fragment {
                 Toast.makeText(getContext(), "Failed to load saved recipes", Toast.LENGTH_SHORT).show();
             }
         });
-        // IM/2021/020 - M.A.P.M Karunathilaka
+
 
 
         // Set up SearchView listener to filter recipes based on query
@@ -90,7 +89,6 @@ public class fragment_SavedRecipes extends Fragment {
         return view;
     }
 
-    // IM/2021/020 - M.A.P.M Karunathilaka
     private void fetchRecipeById(String recipeId) {
         DatabaseReference recipeDb = FirebaseDatabase.getInstance().getReference("Recipe").child(recipeId);
         recipeDb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -112,7 +110,6 @@ public class fragment_SavedRecipes extends Fragment {
             }
         });
     }
-    // IM/2021/020 - M.A.P.M Karunathilaka
 
     //IM-2021-058 - K.D. Kolonnage
     // Filter recipes based on the search query

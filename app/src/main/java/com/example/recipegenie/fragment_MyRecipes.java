@@ -93,7 +93,6 @@ public class fragment_MyRecipes extends Fragment {
         return view;
     }
 
-    // IM/2021/020 - M.A.P.M Karunathilaka
     private void fetchRecipeById(String recipeId) {
         DatabaseReference recipeDb = FirebaseDatabase.getInstance().getReference("Recipe").child(recipeId);
         recipeDb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -115,7 +114,6 @@ public class fragment_MyRecipes extends Fragment {
             }
         });
     }
-    // IM/2021/020 - M.A.P.M Karunathilaka
 
     //IM-2021-058 - K.D. Kolonnage
     // Filter recipes based on the search query
