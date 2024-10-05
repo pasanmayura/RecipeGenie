@@ -263,7 +263,7 @@ public class AddRecipe extends AppCompatActivity {
 
 
     private void saveRecipe(String title, String cookTime, String serves, String mealType, ArrayList<String> ingredients,
-                                              ArrayList<String> steps, String videoUrl, String imageUrl) {
+                            ArrayList<String> steps, String videoUrl, String imageUrl) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference recipeRef = database.getReference("Recipe");
 
@@ -284,6 +284,8 @@ public class AddRecipe extends AppCompatActivity {
         recipe.put("ingredients", ingredients);
         recipe.put("steps", steps);
         recipe.put("userId", currentUser.getUid());
+        recipe.put("averageRating", 0.0);
+        recipe.put("numberOfRatings", 0);
 
         // Push a new recipe entry to the "recipes" node
         String recipeId = recipeRef.push().getKey(); // Get the unique key for the recipe
