@@ -1,3 +1,4 @@
+//IM/2021/058 - K.D. Kolonnage
 package com.example.recipegenie;
 
 import android.os.Bundle;
@@ -10,9 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +41,7 @@ public class Search extends AppCompatActivity {
         // Initialize lists
         recipeList = new ArrayList<>();
         filteredList = new ArrayList<>();
-        adapter = new RecipeAdapter(this, filteredList);
+        adapter = new RecipeAdapter(this,filteredList);
         recyclerView.setAdapter(adapter);
 
         // Set up Firebase database reference
@@ -65,11 +63,6 @@ public class Search extends AppCompatActivity {
                 return true;
             }
         });
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        FloatingActionButton fab = findViewById(R.id.addBtn);
-
-        NavBar.setupBottomNavigation(this, bottomNavigationView, R.id.search, fab);
     }
 
     // Method to fetch recipes from Firebase
@@ -81,22 +74,18 @@ public class Search extends AppCompatActivity {
                 try {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Recipe recipe = snapshot.getValue(Recipe.class);
-                        if (recipe != null && recipe.getTitle() != null) { // Validate that recipe and title are not null
-                            // Get the recipeID from the snapshot key
+                        if (recipe != null && recipe.getTitle() != null) { // Validate that recipe and title are not
                             String recipeID = snapshot.getKey();
-                            recipe.setRecipeID(recipeID);  // Set the recipeID in the Recipe object
-
-                            recipeList.add(recipe);  // Add recipe to the list
+                            recipe.setRecipeID(recipeID);
+                            recipeList.add(recipe);
                         }
                     }
-
                     if (recipeList.isEmpty()) {
                         noResultsTextView.setVisibility(View.VISIBLE); // Show no results text if the list is empty
                         noResultsTextView.setText("No recipes available.");
                     } else {
                         noResultsTextView.setVisibility(View.GONE); // Hide the text when recipes are available
                     }
-                    filteredList.clear();
                     filteredList.addAll(recipeList); // Display all recipes initially
                     adapter.notifyDataSetChanged();
                 } catch (Exception e) {
@@ -108,35 +97,54 @@ public class Search extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e("Search", "Database error: " + databaseError.getMessage());
-                Toast.makeText(Search.this, "Failed to load data. Please check your internet connection.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Search.this, "Failed to load data. Please check your internet connection.",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // Filter recipes based on the search query
+    // Filter recipes
+    // filter recipes
     private void filterRecipes(String query) {
-        filteredList.clear(); // Clear the current filtered list
+        filteredList.clear(); // clear current list
 
-        // Check if the search query is not empty
+        // Check if search bar is empty
         if (query == null || query.trim().isEmpty()) {
-            filteredList.addAll(recipeList); // Show all recipes if the search query is empty
+            filteredList.addAll(recipeList);
         } else {
+            String[] queryWords = query.trim().toLowerCase().split("\\s+");
             for (Recipe recipe : recipeList) {
-                // Handle potential null values in recipe titles
-                if (recipe.getTitle() != null && recipe.getTitle().toLowerCase().contains(query.toLowerCase())) {
-                    filteredList.add(recipe); // Add recipe if it matches the query
+                if (recipe.getTitle() != null) {
+                    String lowerCaseTitle = recipe.getTitle().toLowerCase();
+                    String[] titleWords = lowerCaseTitle.split("\\s+");
+
+                    // check if the recipe first letter matching with the user inputs
+                    if (titleWords.length >= queryWords.length) {
+                        boolean match = true;
+                        for (int i = 0; i < queryWords.length; i++) {
+                            if (!titleWords[i].startsWith(queryWords[i])) {
+                                match = false;
+                                break;
+                            }
+                        }
+                        if (match) {
+                            filteredList.add(recipe);
+                            continue;
+                        }
+                    }
+
+                    // substring search
+                    if (lowerCaseTitle.contains(query.trim().toLowerCase())) {
+                        filteredList.add(recipe);
+                    }
                 }
             }
         }
 
-        // Show or hide the no results text based on the filtered list
-        if (filteredList.isEmpty()) {
-            noResultsTextView.setVisibility(View.VISIBLE);
-            noResultsTextView.setText("No recipes found matching your search.");
-        } else {
-            noResultsTextView.setVisibility(View.GONE);
-        }
-
-        adapter.notifyDataSetChanged(); // Notify adapter to update the displayed list
+        // updated list
+        adapter.notifyDataSetChanged();
     }
+
 }
+
+//IM/2021/058 - K.D Kolonnage
