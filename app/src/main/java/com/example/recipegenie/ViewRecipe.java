@@ -72,8 +72,7 @@ public class ViewRecipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewrecipe);
 
-        // Initialize Views
-//        recipeId = "-O7T-pg8xxLi84tB7efe";
+
         recipeId = getIntent().getStringExtra("RECIPE_ID"); //get the recipe ID passed from homepage recipecard
         Log.d("ViewRecipe", "Received Recipe ID: " + recipeId);
 
@@ -368,9 +367,6 @@ public class ViewRecipe extends AppCompatActivity {
             ingrediantContainer.addView(divider);
         }
 
-
-
-
         // Load and display the thumbnail using Glide
         Glide.with(this)//initializes Glide and tells it to work with the current activity
                 .load(thumbnailUrl) //image source for Glide to load.
@@ -379,10 +375,6 @@ public class ViewRecipe extends AppCompatActivity {
 
         // Set up the VideoView
         playRecipeVideo(video_Url);
-
-
-
-
     }
 
     private void playRecipeVideo(String videoUrl) {
