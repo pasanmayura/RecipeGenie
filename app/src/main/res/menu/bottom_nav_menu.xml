@@ -9,12 +9,12 @@
         android:id="@+id/search"
         android:title="Search"
         android:icon="@drawable/search_icon" />
-<!--    <item-->
-<!--        android:id="@+id/add"-->
-<!--        android:title=""-->
-<!--        android:icon="@drawable/add_circle"-->
-<!--        android:iconTint="@color/orange"/>-->
-    <item tools:ignore="MenuTitle" />
+    <item
+        android:id="@+id/add"
+        android:title="Add"
+        android:icon="@drawable/add_circle"
+        android:iconTint="@color/orange"/>
+<!--    <item tools:ignore="MenuTitle" />-->
     <item
         android:id="@+id/bookmark"
         android:title="Saved"
