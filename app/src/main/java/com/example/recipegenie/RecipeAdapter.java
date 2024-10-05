@@ -1,3 +1,5 @@
+// IM/2021/020 - M.A.P.M Karunathilaka
+
 package com.example.recipegenie;
 
 import android.content.Context;
@@ -78,5 +80,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
     }
 }
+// IM/2021/020 - M.A.P.M Karunathilaka
+
 
 

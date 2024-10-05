@@ -1,3 +1,5 @@
+// IM/2021/020 - M.A.P.M Karunathilaka
+
 package com.example.recipegenie;
 
 public class Users {
@@ -38,3 +40,5 @@ public class Users {
         this.userEmail = userEmail;
     }
 }
+// IM/2021/020 - M.A.P.M Karunathilaka
+

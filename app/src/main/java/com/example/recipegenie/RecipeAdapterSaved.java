@@ -117,6 +117,9 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
                 context.startActivity(intent);  // Start the new activity
             });
 
+            // IM/2021/020 - M.A.P.M Karunathilaka
+
+
             myHolder.imgDelete.setOnClickListener(v -> {
                 // Show the confirmation dialog
                 dialog_recipe_delete = new Dialog(context);
@@ -147,6 +150,9 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
                 // Show the dialog
                 dialog_recipe_delete.show();
             });
+
+            // IM/2021/020 - M.A.P.M Karunathilaka
+
 
             myHolder.imgEdit.setOnClickListener(v -> {
                 // Get the recipe ID of the clicked item

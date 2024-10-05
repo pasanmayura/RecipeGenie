@@ -1,4 +1,5 @@
 package com.example.recipegenie;
+// IM/2021/009 - Y.A.D.S.C.Basnayake
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -34,7 +35,7 @@ public class VPAdapter extends FragmentStateAdapter {
         return fragmentList.size();
     }
 }
-
+// IM/2021/009 - Y.A.D.S.C.Basnayake
 
 
 

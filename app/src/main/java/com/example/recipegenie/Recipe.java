@@ -1,3 +1,5 @@
+// IM/2021/020 - M.A.P.M Karunathilaka
+
 package com.example.recipegenie;
 
 public class Recipe {
@@ -103,3 +105,6 @@ public class Recipe {
         this.imageUrl = imageUrl;
     }
 }
+
+// IM/2021/020 - M.A.P.M Karunathilaka
+

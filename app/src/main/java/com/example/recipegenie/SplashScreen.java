@@ -1,4 +1,4 @@
-//IM/2021/009
+// IM/2021/009 - Y.A.D.S.C.Basnayake
 package com.example.recipegenie;
 
 import android.os.Bundle;
@@ -48,4 +48,4 @@ public class SplashScreen extends AppCompatActivity {
         }, SPLASH_TIME_OUT);
     }
 }
-//IM/2021/009
+// IM/2021/009 - Y.A.D.S.C.Basnayake

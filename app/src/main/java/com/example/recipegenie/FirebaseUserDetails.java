@@ -1,3 +1,5 @@
+// IM/2021/020 - M.A.P.M Karunathilaka
+
 package com.example.recipegenie;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -12,3 +14,4 @@ public class FirebaseUserDetails {
         return FirebaseDatabase.getInstance().getReference("Users").child(userId);
     }
 }
+// IM/2021/020 - M.A.P.M Karunathilaka

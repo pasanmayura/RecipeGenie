@@ -1,4 +1,5 @@
 package com.example.recipegenie;
+// IM/2021/009 - Y.A.D.S.C.Basnayake
 
 import android.os.Bundle;
 
@@ -54,11 +55,17 @@ public class SavedRecipe extends AppCompatActivity {
                 }
         ).attach();
 
+        // IM/2021/020 - M.A.P.M Karunathilaka
+
         // Set up Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         FloatingActionButton fab = findViewById(R.id.addBtn);
 
         NavBar.setupBottomNavigation(this, bottomNavigationView, R.id.bookmark, fab);
         bottomNavigationView.setSelectedItemId(R.id.bookmark);
+
+        // IM/2021/020 - M.A.P.M Karunathilaka
+
     }
 }
+// IM/2021/009 - Y.A.D.S.C.Basnayake
