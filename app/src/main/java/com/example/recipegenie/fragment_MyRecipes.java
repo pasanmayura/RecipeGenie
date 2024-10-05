@@ -1,4 +1,6 @@
 package com.example.recipegenie;
+// IM/2021/009 - Y.A.D.S.C.Basnayake
+
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -26,7 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-// IM/2021/009 - Y.A.D.S.C.Basnayake
 // To search and view my recipes of the user and delete them
 public class fragment_MyRecipes extends Fragment {
 

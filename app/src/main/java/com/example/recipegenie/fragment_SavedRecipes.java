@@ -1,4 +1,5 @@
 package com.example.recipegenie;
+// IM/2021/009 - Y.A.D.S.C.Basnayake
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -26,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class fragment_SavedRecipes extends Fragment {
-    // IM/2021/009 - Y.A.D.S.C.Basnayake
 // To search and view saved recipes of the user
     private RecipeAdapterSaved recipeAdapterSaved;
     private List<Recipe> recipeList, filteredList;
