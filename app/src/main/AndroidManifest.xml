@@ -65,6 +65,9 @@
         <activity
             android:name=".ViewRecipe"
             android:exported="true"/>
+        <activity
+            android:name=".editRecipe"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

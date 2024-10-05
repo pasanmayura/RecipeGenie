@@ -148,6 +148,21 @@ public class RecipeAdapterSaved extends RecyclerView.Adapter<RecyclerView.ViewHo
                 dialog_recipe_delete.show();
             });
 
+            myHolder.imgEdit.setOnClickListener(v -> {
+                // Get the recipe ID of the clicked item
+                String recipeID = recipeList.get(myHolder.getAdapterPosition()).getRecipeID();
+                Log.d("RecipeAdapterSaved", "sending Recipe ID: " + recipeID);
+
+                // Create an Intent to navigate to the activity
+                Intent intent = new Intent(context, editRecipe.class);
+
+                // Add the recipe ID as an extra to the Intent
+                intent.putExtra("RECIPE_ID", recipeID);
+
+                // Start the Profile (Edit) activity
+                context.startActivity(intent);
+            });
+
         }
     }
 

@@ -1,3 +1,4 @@
+//im-2021-018 start
 package com.example.recipegenie;
 
 import android.content.Context;
@@ -21,7 +22,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +38,7 @@ import java.util.Map;
 
 public class ViewRecipe extends AppCompatActivity {
 
+    //im-2021-014 start
     private RatingBar userRatingBar, averageRatingBar;
     private TextView averageRatingText;
     private Button submitRatingButton;
@@ -41,6 +46,7 @@ public class ViewRecipe extends AppCompatActivity {
     private boolean isRecipeSaved = false;
     SharedPreferences sharedPreferences;
     private static final String PREFS_NAME = "SavedRecipes";
+    //im-2021-014 end
 
     // Variables for UI component
     TextView nameOfrecipetxt, NoOfpersontxt, timeforcooktxt;
@@ -87,6 +93,7 @@ public class ViewRecipe extends AppCompatActivity {
         videoView = findViewById(R.id.recipevideo);
         thumbnailImageView = findViewById(R.id.videoThumbnail);
 
+        //im-2021-014 start
         userRatingBar = findViewById(R.id.userRatingBar);
         averageRatingBar = findViewById(R.id.averageRatingBar);
         averageRatingText = findViewById(R.id.averageRatingText);
@@ -151,6 +158,16 @@ public class ViewRecipe extends AppCompatActivity {
             }
         });
 
+        ImageView backToHomeIcon = findViewById(R.id.back);
+
+        // Set onClick listener for the ImageView
+        backToHomeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToHome(v);  // Call the backToHome method when clicked
+            }
+        });
+
     }
 
     private void updateAverageRatingDisplay(float averageRating) {
@@ -197,8 +214,29 @@ public class ViewRecipe extends AppCompatActivity {
         saveIcon.setImageResource(R.drawable.saved_bookmark);
         isRecipeSaved = true;
 
-        Toast.makeText(ViewRecipe.this, "Recipe saved!", Toast.LENGTH_SHORT).show();
+
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Get reference to the user's savedRecipes node
+        DatabaseReference userSavedRecipesRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(currentUserId)
+                .child("savedRecipes")
+                .child(recipeId); // Add recipeId under savedRecipes
+
+        // Set the value to true to indicate this recipe is saved
+        userSavedRecipesRef.setValue(true).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // Successfully saved the recipe
+                Toast.makeText(ViewRecipe.this, "Recipe saved!", Toast.LENGTH_SHORT).show();
+            } else {
+                // Failed to save the recipe
+                Toast.makeText(ViewRecipe.this, " faild Recipe saved!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
+
 
     private void removeRecipe() {
         // Remove recipe from SharedPreferences
@@ -210,8 +248,33 @@ public class ViewRecipe extends AppCompatActivity {
         saveIcon.setImageResource(R.drawable.save);
         isRecipeSaved = false;
 
-        Toast.makeText(ViewRecipe.this, "Recipe removed from saved!", Toast.LENGTH_SHORT).show();
+
+
+        // Get the current user ID
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Reference to the user's saved recipes in Firebase
+        DatabaseReference userBookmarksRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(userId)
+                .child("savedRecipes");
+
+        // Remove the recipe ID from the user's bookmarks in Firebase
+        userBookmarksRef.child(recipeId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // Notify user that recipe has been unbookmarked
+                Toast.makeText(ViewRecipe.this, "Recipe unsaved!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Notify user in case of failure
+                Toast.makeText(ViewRecipe.this, "Failed to unsaved recipe", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+    //im-2021-014 end
 
     // Get recipe details from Realtime Database
     public void getRecipeDetails(String recipeID) {
@@ -251,55 +314,158 @@ public class ViewRecipe extends AppCompatActivity {
         });
     }
 
-    private void updateUI() {
-        // Show recipe name, time and servings
+    private void updateUI( ){
+
+        //show recipe name
         nameOfrecipetxt.setText(recipeName);
-        timeforcooktxt.setText(time);
+        //add no of people serverd and time fo cook
         NoOfpersontxt.setText(NoOfpeople);
+        timeforcooktxt.setText(time);
 
-        // Populate ingredient and method lists dynamically
+        //show method list
+        methodContainer.removeAllViews();  // Clear any previous views in method container
+
+        // Dynamically add TextView for each method
+        for (String method : instructions) { //get each step in array
+
+            // Create a new TextView for the ingredient
+            TextView methodTextView = new TextView(this);
+            methodTextView.setText("\u2726\u00A0 " + method); //add a bullet before text
+            methodTextView.setTextSize(16); // Set text size
+            methodTextView.setPadding(50, 16, 16, 16); // Set padding for text
+
+            // Add the TextView to the LinearLayout
+            methodContainer.addView(methodTextView);
+
+        }
+
+
+        //show the ingrediant list
+        ingrediantContainer.removeAllViews();  // Clear any previous views
+
+        // Dynamically add TextView for each ingredient
         for (String ingredient : ingrediants) {
-            TextView textView = new TextView(this);
-            textView.setText(ingredient);
-            ingrediantContainer.addView(textView);
+            // Create a new TextView for the ingredient
+            TextView ingredientTextView = new TextView(this);
+            ingredientTextView.setText(ingredient);//set the text
+            ingredientTextView.setTextSize(16); // Set text size
+            ingredientTextView.setPadding(45, 16, 16, 16); // Set padding
+
+            // Add the TextView to the LinearLayout
+            ingrediantContainer.addView(ingredientTextView);
+
+            //  add a divider view for separation
+            View divider = new View(this);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    2// Height of the divider
+            );
+            params.setMargins(10, 5, 10, 5);  // Set margins to space out the divider
+            divider.setLayoutParams(params);
+            divider.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));//set the color
+
+            // Add the divider after the TextView
+            ingrediantContainer.addView(divider);
         }
-        for (String step : instructions) {
-            TextView textView = new TextView(this);
-            textView.setText(step);
-            methodContainer.addView(textView);
-        }
 
-        // Load video thumbnail with Glide
-        Glide.with(this)
-                .load(thumbnailUrl)
-                .placeholder(R.drawable.placeholder)
-                .into(thumbnailImageView);
 
-        // Set up video playback
-        playIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                playIcon.setVisibility(View.GONE);
-                thumbnailImageView.setVisibility(View.GONE);
-                videoView.setVisibility(View.VISIBLE);
 
-                videoView.setVideoURI(Uri.parse(video_Url));
-                MediaController mediaController = new MediaController(ViewRecipe.this);
-                videoView.setMediaController(mediaController);
-                mediaController.setAnchorView(videoView);
-                videoView.start();
+
+        // Load and display the thumbnail using Glide
+        Glide.with(this)//initializes Glide and tells it to work with the current activity
+                .load(thumbnailUrl) //image source for Glide to load.
+                .placeholder(R.drawable.placeholder)//sets a placeholder image that will be displayed in the ImageView while Glide is loading the actual image
+                .into(thumbnailImageView);//load the fetched image into the  ImageView
+
+        // Set up the VideoView
+        playRecipeVideo(video_Url);
+
+
+
+
+    }
+
+    private void playRecipeVideo(String videoUrl) {
+        // Play video only when thumbnail is clicked
+        thumbnailImageView.setOnClickListener(v -> {
+            thumbnailImageView.setVisibility(View.GONE);
+            playIcon.setVisibility(View.GONE);
+            // Hide thumbnail
+            Uri videoUri = Uri.parse(videoUrl);//converts the videoUrl  into a Uri object, which is required to load the video into the VideoView.
+            videoView.setVideoURI(videoUri);// sets the video to be palyed using uri on videoview
+            videoView.setMediaController(new MediaController(this));  // Adds video controls
+
+            videoView.requestFocus();
+            videoView.start(); //start video after click
+
+
+
+        });
+
+        // When the video is done playing, reset the thumbnail visibility
+        videoView.setOnCompletionListener(mp -> {
+            thumbnailImageView.setVisibility(View.VISIBLE);  // Show the thumbnail again after video ends
+            playIcon.setVisibility(View.VISIBLE);
+        });
+
+        videoView.setOnClickListener(v -> {
+            if (videoView.isPlaying()) {
+                videoView.pause(); // Pause the video
+                playIcon.setVisibility(View.VISIBLE); // Show play icon when paused
+            } else {
+                videoView.start(); // Resume the video
+                playIcon.setVisibility(View.GONE); // Hide play icon when playing
             }
         });
     }
 
-    private void shareRecipe() {
-        // Share recipe details via intent
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out this recipe: " + recipeName);
-        sendIntent.setType("text/plain");
+    //im-2021-014 start
+    private void shareRecipe() {// Replace with your recipe link
 
-        Intent shareIntent = Intent.createChooser(sendIntent, null);
-        startActivity(shareIntent);
+        // Create the content to share
+        String shareText = "Check out this recipe: " + recipeName + "\n"
+                + "Serves: " + NoOfpeople + "\n"
+                + "Cook time: " + time + "\n"
+                + "Ingredients: " + ingrediants.toString() + "\n"
+                + "Instructions: " + instructions.toString() + "\n"
+                + "Watch the video: " + video_Url + "\n";
+
+        // Create an Intent with ACTION_SEND
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");  // Share as plain text
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Delicious Recipe: " + recipeName);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);  // The text to share
+
+        // Optional: Check if WhatsApp is installed
+        boolean isWhatsAppInstalled = isAppInstalled("com.whatsapp");
+        if (isWhatsAppInstalled) {
+            // If WhatsApp is installed, set the package to WhatsApp
+            shareIntent.setPackage("com.whatsapp");
+            startActivity(shareIntent);  // Share via WhatsApp
+        } else {
+            // If WhatsApp is not installed, use other platforms
+            startActivity(Intent.createChooser(shareIntent, "Share Recipe via"));
+        }
     }
+
+
+
+
+    // Helper method to check if a specific app is installed
+    private boolean isAppInstalled(String packageName) {
+        try {
+            getPackageManager().getPackageInfo(packageName, 0);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    //im-2021-014 end
+
+    public void backToHome(View view) {
+        startActivity(new Intent(this, Home.class));//MainRecipeView should be repalce with homepage java file name
+    }
+
 }
+
+//im-2021-018 end
