@@ -7,7 +7,7 @@ public class Recipe {
     private String imageUrl;
     private String meal;
     private String servingInfo;
-    private double rating;
+    private double averageRating;
     private String recipeID;
 
     // Empty constructor required for Firebase
@@ -20,12 +20,12 @@ public class Recipe {
         this.imageUrl = imageUrl;
     }
 
-    public Recipe(String title, String meal, String servingInfo, String cooktime, double rating, String imageUrl) {
+    public Recipe(String title, String meal, String servingInfo, String cooktime, double averageRating, String imageUrl) {
         this.title = title;
         this.meal = meal;
         this.servingInfo = servingInfo;
         this.cooktime = cooktime;
-        this.rating = rating;
+        this.averageRating = averageRating;
         this.imageUrl = imageUrl;
     }
 
@@ -46,12 +46,12 @@ public class Recipe {
         this.servingInfo = servingInfo;
     }
 
-    public double getRating() {
-        return rating;
+    public double getAverageRating() {
+        return averageRating;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setAverageRating(double rating) {
+        this.averageRating = rating;
     }
 
     public String getRecipeID() {

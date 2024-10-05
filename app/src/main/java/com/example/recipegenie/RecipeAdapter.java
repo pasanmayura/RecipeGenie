@@ -37,6 +37,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.titleCard.setText(recipe.getTitle());
         holder.servinginfoCard.setText(recipe.getServingInfo());
         holder.cooktimeCard.setText(recipe.getCooktime());
+        holder.ratingCard.setText(String.valueOf(recipe.getAverageRating()));
 
         // Load image using Picasso
         Picasso.get().load(recipe.getImageUrl()).into(holder.imageViewCard);
@@ -62,7 +63,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mealCard, titleCard, servinginfoCard, cooktimeCard;
+        TextView mealCard, titleCard, servinginfoCard, cooktimeCard, ratingCard;
         ImageView imageViewCard;
 
         public RecipeViewHolder(@NonNull View itemView) {
@@ -72,6 +73,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             servinginfoCard = itemView.findViewById(R.id.servinginfoCard);
             cooktimeCard = itemView.findViewById(R.id.cooktimeCard);
             imageViewCard = itemView.findViewById(R.id.imageViewCard);
+            ratingCard = itemView.findViewById(R.id.ratingCard);
+
         }
     }
 }
