@@ -43,7 +43,7 @@ public class Search extends AppCompatActivity {
         // Initialize lists
         recipeList = new ArrayList<>();
         filteredList = new ArrayList<>();
-        adapter = new RecipeAdapter(filteredList);
+        adapter = new RecipeAdapter(this, filteredList);
         recyclerView.setAdapter(adapter);
 
         // Set up Firebase database reference
@@ -82,15 +82,21 @@ public class Search extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Recipe recipe = snapshot.getValue(Recipe.class);
                         if (recipe != null && recipe.getTitle() != null) { // Validate that recipe and title are not null
-                            recipeList.add(recipe);
+                            // Get the recipeID from the snapshot key
+                            String recipeID = snapshot.getKey();
+                            recipe.setRecipeID(recipeID);  // Set the recipeID in the Recipe object
+
+                            recipeList.add(recipe);  // Add recipe to the list
                         }
                     }
+
                     if (recipeList.isEmpty()) {
                         noResultsTextView.setVisibility(View.VISIBLE); // Show no results text if the list is empty
                         noResultsTextView.setText("No recipes available.");
                     } else {
                         noResultsTextView.setVisibility(View.GONE); // Hide the text when recipes are available
                     }
+                    filteredList.clear();
                     filteredList.addAll(recipeList); // Display all recipes initially
                     adapter.notifyDataSetChanged();
                 } catch (Exception e) {

@@ -1,24 +1,25 @@
 package com.example.recipegenie;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
     private List<Recipe> recipeList;
+    private Context context;  // Store the context to use for starting the new activity
 
-    public RecipeAdapter(List<Recipe> recipeList) {
+    public RecipeAdapter(Context context, List<Recipe> recipeList) {
+        this.context = context;  // Initialize the context in the constructor
         this.recipeList = recipeList;
     }
 
@@ -39,6 +40,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         // Load image using Picasso
         Picasso.get().load(recipe.getImageUrl()).into(holder.imageViewCard);
+
+        // Set click listener to open ViewRecipe activity
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("RecipeAdapter", "Clicked Recipe ID: " + recipe.getRecipeID());
+
+                // Pass the recipeID to ViewRecipe activity
+                Intent intent = new Intent(context, ViewRecipe.class);
+                intent.putExtra("RECIPE_ID", recipe.getRecipeID());  // Assuming the Recipe class has getRecipeID()
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
