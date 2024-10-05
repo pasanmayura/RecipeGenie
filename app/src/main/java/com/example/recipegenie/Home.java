@@ -18,9 +18,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
-import android.view.View;
 
 public class Home extends AppCompatActivity {
 
@@ -40,20 +40,40 @@ public class Home extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recipeList = new ArrayList<>();
-        adapter = new RecipeAdapter(recipeList);
+        adapter = new RecipeAdapter(this, recipeList);
         recyclerView.setAdapter(adapter);
 
         // Set up Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("Recipe");
 
         // Fetch data from Firebase
+        fetchAllRecipes();
+
+        // Set up button listeners for different meals
+        setupMealButtons();
+
+        // Set up Bottom Navigation
+        setupBottomNavigation();
+
+        // Setup search view
+        setupSearchView();
+
+        // Set up profile icon click listener
+        setupProfileIcon();
+    }
+
+    private void fetchAllRecipes() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 recipeList.clear();  // Clear list to avoid duplication
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Recipe recipe = snapshot.getValue(Recipe.class);
-                    recipeList.add(recipe);
+                    String recipeID = snapshot.getKey();
+                    if (recipe != null) {
+                        recipe.setRecipeID(recipeID);  // Set the recipeID
+                        recipeList.add(recipe);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -63,40 +83,46 @@ public class Home extends AppCompatActivity {
                 Log.e("Home", "Database error: " + databaseError.getMessage());
             }
         });
+    }
 
+    private void setupMealButtons() {
         Button breakfastButton = findViewById(R.id.breakfastButton);
-        breakfastButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fetchBreakfastRecipes();
-            }
-        });
+        breakfastButton.setOnClickListener(v -> fetchRecipesByMeal("Breakfast"));
 
         Button lunchButton = findViewById(R.id.lunchButton);
-        lunchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fetchLunchRecipes();
-            }
-        });
+        lunchButton.setOnClickListener(v -> fetchRecipesByMeal("Lunch"));
 
         Button dinnerButton = findViewById(R.id.dinnerButton);
-        dinnerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fetchDinnerRecipes();
-            }
-        });
+        dinnerButton.setOnClickListener(v -> fetchRecipesByMeal("Dinner"));
 
         Button alldayButton = findViewById(R.id.alldayButton);
-        alldayButton.setOnClickListener(new View.OnClickListener() {
+        alldayButton.setOnClickListener(v -> fetchRecipesByMeal("All Day"));
+    }
+
+    private void fetchRecipesByMeal(String mealType) {
+        databaseReference.orderByChild("meal").equalTo(mealType).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                fetchAllDayRecipes();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                recipeList.clear();
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    Recipe recipe = childSnapshot.getValue(Recipe.class);
+                    String recipeID = childSnapshot.getKey(); // Correctly get the key here
+                    if (recipe != null) {
+                        recipe.setRecipeID(recipeID);  // Set the recipeID
+                        recipeList.add(recipe);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Home", "Database error: " + error.getMessage());
             }
         });
+    }
 
-        // Set up Bottom Navigation
+    private void setupBottomNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         FloatingActionButton fab = findViewById(R.id.addBtn);
 
@@ -104,21 +130,22 @@ public class Home extends AppCompatActivity {
 
         TextView UsernameTextView = findViewById(R.id.displayname);
         UserDataFetch.fetchUsername(UsernameTextView);
+    }
 
+    private void setupSearchView() {
         searchView = findViewById(R.id.search_view);
 
-        searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Programmatically switch to the search tab
-                bottomNavigationView.setSelectedItemId(R.id.search);
-            }
+        searchView.setOnClickListener(view -> {
+            // Programmatically switch to the search tab
+            BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+            bottomNavigationView.setSelectedItemId(R.id.search);
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // Navigate to search tab when search is submitted
+                BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
                 bottomNavigationView.setSelectedItemId(R.id.search);
                 return true;  // Return true to indicate that the query submission is handled
             }
@@ -128,95 +155,17 @@ public class Home extends AppCompatActivity {
                 return false;
             }
         });
+    }
 
+    private void setupProfileIcon() {
         profileIcon = findViewById(R.id.imageView_profile);
 
-        profileIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                // Navigate to the edit profile activity
-                Intent intent = new Intent(Home.this, Profile.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clears previous activities
-                startActivity(intent);
-                finish();
-            }
+        profileIcon.setOnClickListener(v -> {
+            // Navigate to the edit profile activity
+            Intent intent = new Intent(Home.this, Profile.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clears previous activities
+            startActivity(intent);
+            finish();
         });
     }
-    private void fetchBreakfastRecipes() {
-        databaseReference.orderByChild("meal").equalTo("Breakfast").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                recipeList.clear();
-                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    Recipe recipe = childSnapshot.getValue(Recipe.class);
-                    recipeList.add(recipe);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Home", "Database error: " + error.getMessage());
-            }
-        });
-    }
-
-    private void fetchLunchRecipes() {
-        databaseReference.orderByChild("meal").equalTo("Lunch").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                recipeList.clear();
-                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    Recipe recipe = childSnapshot.getValue(Recipe.class);
-                    recipeList.add(recipe);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Home", "Database error: " + error.getMessage());
-            }
-        });
-    }
-
-    private void fetchDinnerRecipes() {
-        databaseReference.orderByChild("meal").equalTo("Dinner").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                recipeList.clear();
-                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    Recipe recipe = childSnapshot.getValue(Recipe.class);
-                    recipeList.add(recipe);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Home", "Database error: " + error.getMessage());
-            }
-        });
-    }
-
-    private void fetchAllDayRecipes() {
-        databaseReference.orderByChild("meal").equalTo("All Day").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                recipeList.clear();
-                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    Recipe recipe = childSnapshot.getValue(Recipe.class);
-                    recipeList.add(recipe);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Home", "Database error: " + error.getMessage());
-            }
-        });
-    }
-
-
 }
