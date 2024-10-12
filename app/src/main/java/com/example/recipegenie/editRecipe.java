@@ -253,9 +253,9 @@ public class editRecipe extends AppCompatActivity {
 
         // Update basic details
         updatedRecipe.put("title", title);
-        updatedRecipe.put("cookTime", cookTime);
-        updatedRecipe.put("serves", serves);
-        updatedRecipe.put("mealType", mealType);
+        updatedRecipe.put("cooktime", cookTime);
+        updatedRecipe.put("servingInfo", serves);
+        updatedRecipe.put("meal", mealType);
         updatedRecipe.put("ingredients", ingredients);
         updatedRecipe.put("steps", steps);
 
@@ -310,7 +310,7 @@ public class editRecipe extends AppCompatActivity {
     //update the details in realtime
     private void updateRecipeInRealtimeDatabase(Map<String, Object> updatedRecipe, String recipeId) {
         // Get an instance of the Firebase Realtime Database
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("recipes");
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Recipe");
 
         // Update the recipe using the recipeId
         databaseRef.child(recipeId).updateChildren(updatedRecipe)
@@ -331,8 +331,8 @@ public class editRecipe extends AppCompatActivity {
                 DataSnapshot snapshot = task.getResult();
                 if (snapshot.exists()) {
                     recipeName = snapshot.child("title").getValue(String.class);
-                    time = snapshot.child("cookTime").getValue(String.class);
-                    serves = snapshot.child("serves").getValue(String.class);
+                    time = snapshot.child("cooktime").getValue(String.class);
+                    serves = snapshot.child("servingInfo").getValue(String.class);
                     instructions = (List<String>) snapshot.child("steps").getValue();
                     ingrediants = (List<String>) snapshot.child("ingredients").getValue();
                     video_Url = snapshot.child("videoUrl").getValue(String.class);
