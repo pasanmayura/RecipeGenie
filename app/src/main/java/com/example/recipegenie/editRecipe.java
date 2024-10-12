@@ -310,7 +310,7 @@ public class editRecipe extends AppCompatActivity {
     //update the details in realtime
     private void updateRecipeInRealtimeDatabase(Map<String, Object> updatedRecipe, String recipeId) {
         // Get an instance of the Firebase Realtime Database
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Recipe");
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("recipes");
 
         // Update the recipe using the recipeId
         databaseRef.child(recipeId).updateChildren(updatedRecipe)
