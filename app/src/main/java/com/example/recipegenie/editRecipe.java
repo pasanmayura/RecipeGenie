@@ -29,9 +29,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -65,6 +67,7 @@ public class editRecipe extends AppCompatActivity {
     String video_Url;
     String imageUrl;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +83,6 @@ public class editRecipe extends AppCompatActivity {
 
 
         recipeId = getIntent().getStringExtra("RECIPE_ID"); //get the recipe ID passed from homepage recipecard
-
         titleInput = findViewById(R.id.recipe_title_input);
         cookTimeInput = findViewById(R.id.cookTimeIn);
         servesInput = findViewById(R.id.servesIn);
@@ -117,8 +119,8 @@ public class editRecipe extends AppCompatActivity {
         // Add recipe button
         addRecipeButton.setOnClickListener(v -> {
             // Collect all the data first
-            String title = titleInput.getText().toString();
-            String cookTime = cookTimeInput.getText().toString();
+            String recipeName = titleInput.getText().toString();
+            String time = cookTimeInput.getText().toString();
             String serves = servesInput.getText().toString();
             String mealType = mealTypeSpinner.getSelectedItem().toString();
 
@@ -139,8 +141,9 @@ public class editRecipe extends AppCompatActivity {
 
 
             // Proceed to upload video and image
-            uploadVideoAndImageToFirebase(videoUri, imageUri,recipeId, title, cookTime, serves, mealType, ingredients, steps);
+            uploadVideoAndImageToFirebase(videoUri, imageUri,recipeId, recipeName, time, serves, mealType, ingredients, steps);
         });
+
         ImageView closeButton = findViewById(R.id.close_button);
 
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -246,7 +249,7 @@ public class editRecipe extends AppCompatActivity {
                                                String serves, String mealType, ArrayList<String> ingredients,
                                                ArrayList<String> steps) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        //FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
         // Map for recipe data to be updated
         Map<String, Object> updatedRecipe = new HashMap<>();
@@ -255,13 +258,13 @@ public class editRecipe extends AppCompatActivity {
         updatedRecipe.put("title", title);
         updatedRecipe.put("cooktime", cookTime);
         updatedRecipe.put("servingInfo", serves);
-        updatedRecipe.put("meal", mealType);
+        updatedRecipe.put("mealType", mealType);
         updatedRecipe.put("ingredients", ingredients);
         updatedRecipe.put("steps", steps);
 
         // If no new image or video, update without uploading media
         if (imageUri == null && videoUri == null) {
-            updateRecipeInRealtimeDatabase(updatedRecipe, recipeId);
+            updateRecipeInRealtimeDatabase(updatedRecipe,recipeId);
         } else {
             // First, upload the image if there's a new one
             if (imageUri != null) {
@@ -274,7 +277,7 @@ public class editRecipe extends AppCompatActivity {
                             uploadVideoAndFinalize(videoUri, updatedRecipe, recipeId);
                         } else {
                             // No new video, just update Firestore with new image
-                            updateRecipeInRealtimeDatabase(updatedRecipe, recipeId);
+                            updateRecipeInRealtimeDatabase(updatedRecipe,recipeId);
                         }
                     }).addOnFailureListener(e -> {
                         Toast.makeText(editRecipe.this, "Failed to get image URL", Toast.LENGTH_SHORT).show();
@@ -298,7 +301,7 @@ public class editRecipe extends AppCompatActivity {
         videoRef.putFile(videoUri).addOnSuccessListener(taskSnapshot -> {
             videoRef.getDownloadUrl().addOnSuccessListener(videoDownloadUrl -> {
                 updatedRecipe.put("videoUrl", videoDownloadUrl.toString());
-                updateRecipeInRealtimeDatabase(updatedRecipe, recipeId);  // Update Firestore after video URL is obtained
+                updateRecipeInRealtimeDatabase(updatedRecipe,recipeId);  // Update Firestore after video URL is obtained
             }).addOnFailureListener(e -> {
                 Toast.makeText(editRecipe.this, "Failed to get video URL", Toast.LENGTH_SHORT).show();
             });
@@ -307,77 +310,54 @@ public class editRecipe extends AppCompatActivity {
         });
     }
 
-    //update the details in realtime
-    private void updateRecipeInRealtimeDatabase(Map<String, Object> updatedRecipe, String recipeId) {
-        // Get an instance of the Firebase Realtime Database
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Recipe");
 
-        // Update the recipe using the recipeId
-        databaseRef.child(recipeId).updateChildren(updatedRecipe)
-                .addOnSuccessListener(aVoid ->{
-                        Toast.makeText(editRecipe.this, "Recipe updated successfully!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(editRecipe.this, fragment_MyRecipes.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clears previous activities
-                        startActivity(intent);
-                        finish();
-                })
-                .addOnFailureListener(e ->
-                        Toast.makeText(editRecipe.this, "Failed to update recipe", Toast.LENGTH_SHORT).show());
+    private void updateRecipeInRealtimeDatabase(Map<String, Object> updatedRecipe,String recipeID) {
+        //DatabaseReference databaseRef1 = FirebaseDatabase.getInstance().getReference("Recipes").child(recipeId);
+        DatabaseReference recipeDb = FirebaseDatabase.getInstance().getReference("Recipe").child(recipeId);
+        recipeDb.updateChildren(updatedRecipe)
+                .addOnSuccessListener(aVoid -> Toast.makeText(editRecipe.this, "Recipe updated successfully!", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(editRecipe.this, "Failed to update recipe", Toast.LENGTH_SHORT).show());
     }
 
 
 
 
-    // Method to fetch recipe details from Firestore based on the recipeID
-    private void getRecipeDetails(String recipeId) {
-        // Get recipe details from Firebase Realtime Database and populate fields
-        databaseRef.child(recipeId).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DataSnapshot snapshot = task.getResult();
+
+
+    public void getRecipeDetails(String recipeID) {
+        DatabaseReference recipeDb = FirebaseDatabase.getInstance().getReference("Recipe").child(recipeId);
+        recipeDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    // Retrieve recipe details from Realtime Database
                     recipeName = snapshot.child("title").getValue(String.class);
+                    ingrediants = (List<String>) snapshot.child("ingredients").getValue();
+                    instructions = (List<String>) snapshot.child("steps").getValue();
                     time = snapshot.child("cooktime").getValue(String.class);
                     serves = snapshot.child("servingInfo").getValue(String.class);
-                    instructions = (List<String>) snapshot.child("steps").getValue();
-                    ingrediants = (List<String>) snapshot.child("ingredients").getValue();
                     video_Url = snapshot.child("videoUrl").getValue(String.class);
                     imageUrl = snapshot.child("imageUrl").getValue(String.class);
 
-                    titleInput.setText(recipeName);
-                    cookTimeInput.setText(time);
-                    servesInput.setText(serves);
 
-                    // Populate ingredients and steps fields
-                    if (ingrediants != null) {
-                        for (String ingredient : ingrediants) {
-                            EditText ingredientInput = new EditText(editRecipe.this);
-                            ingredientInput.setText(ingredient);
-                            ingredientContainer.addView(ingredientInput);
-                        }
-                    }
 
-                    if (instructions != null) {
-                        for (String instruction : instructions) {
-                            EditText stepInput = new EditText(editRecipe.this);
-                            stepInput.setText(instruction);
-                            stepsContainer.addView(stepInput);
-                        }
-                    }
+                    // Update UI with the retrieved data
+                    updateUI();
 
-                    if (imageUrl != null) {
-                        Glide.with(editRecipe.this)
-                                .load(imageUrl)
-                                .placeholder(R.drawable.placeholder_image)
-                                .into(recipeImagePreview);
-                    }
+
                 } else {
-                    Toast.makeText(editRecipe.this, "Recipe not found!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(editRecipe.this, "Data not available", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(editRecipe.this, "Failed to fetch recipe details!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(editRecipe.this, "Error getting recipe", Toast.LENGTH_SHORT).show();
+                Log.e("DatabaseError", error.getMessage());
             }
         });
     }
+
 
 
     //method to update UI with retrived data
@@ -453,12 +433,18 @@ public class editRecipe extends AppCompatActivity {
 
 
 
+        //int existingEditTextIndex = ingredientContainer.indexOfChild(findViewById(R.id.IngredientsIn));
+
         // Add the EditText to the relevant container
         if(identifier==1){
             ingredientContainer.addView(viewEditText);
         }else if(identifier == 2){
             stepsContainer.addView(viewEditText);
+
         }
+
+
+
     }
 }
 //IM-2021-018 end
