@@ -5,9 +5,12 @@ package com.example.recipegenie;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,9 +32,12 @@ public class Home extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecipeAdapter adapter;
     private List<Recipe> recipeList;
+    private List<Recipe> filteredList;
     private DatabaseReference databaseReference;
     private SearchView searchView;
     private ImageView profileIcon;
+
+    private String currentMealType = "All Day"; // To track selected meal type
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,8 @@ public class Home extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recipeList = new ArrayList<>();
-        adapter = new RecipeAdapter(this, recipeList);
+        filteredList = new ArrayList<>();
+        adapter = new RecipeAdapter(this, filteredList);
         recyclerView.setAdapter(adapter);
 
         // Set up Firebase database reference
@@ -72,7 +79,7 @@ public class Home extends AppCompatActivity {
                         recipeList.add(recipe);
                     }
                 }
-                adapter.notifyDataSetChanged();
+                filterRecipes("", currentMealType); // Initially show all recipes based on current meal type
             }
 
             @Override
@@ -82,40 +89,31 @@ public class Home extends AppCompatActivity {
         });
     }
 
+    //IM/2021/058 - K.D. Kolonnage
+    //new modified method to set up meal buttons
     private void setupMealButtons() {
         Button breakfastButton = findViewById(R.id.breakfastButton);
-        breakfastButton.setOnClickListener(v -> fetchRecipesByMeal("Breakfast"));
+        breakfastButton.setOnClickListener(v -> {
+            currentMealType = "Breakfast";
+            filterRecipes(searchView.getQuery().toString(), currentMealType);  // Filter when breakfast is selected
+        });
 
         Button lunchButton = findViewById(R.id.lunchButton);
-        lunchButton.setOnClickListener(v -> fetchRecipesByMeal("Lunch"));
+        lunchButton.setOnClickListener(v -> {
+            currentMealType = "Lunch";
+            filterRecipes(searchView.getQuery().toString(), currentMealType);  // Filter when lunch is selected
+        });
 
         Button dinnerButton = findViewById(R.id.dinnerButton);
-        dinnerButton.setOnClickListener(v -> fetchRecipesByMeal("Dinner"));
+        dinnerButton.setOnClickListener(v -> {
+            currentMealType = "Dinner";
+            filterRecipes(searchView.getQuery().toString(), currentMealType);  // Filter when dinner is selected
+        });
 
         Button alldayButton = findViewById(R.id.alldayButton);
-        alldayButton.setOnClickListener(v -> fetchRecipesByMeal("All Day"));
-    }
-
-    private void fetchRecipesByMeal(String mealType) {
-        databaseReference.orderByChild("meal").equalTo(mealType).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                recipeList.clear();
-                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    Recipe recipe = childSnapshot.getValue(Recipe.class);
-                    String recipeID = childSnapshot.getKey(); // Get the key here
-                    if (recipe != null) {
-                        recipe.setRecipeID(recipeID);  // Set the recipeID
-                        recipeList.add(recipe);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Home", "Database error: " + error.getMessage());
-            }
+        alldayButton.setOnClickListener(v -> {
+            currentMealType = "All Day";
+            filterRecipes(searchView.getQuery().toString(), currentMealType);  // Filter when All Day is selected
         });
     }
 
@@ -129,30 +127,87 @@ public class Home extends AppCompatActivity {
         UserDataFetch.fetchUsername(UsernameTextView);
     }
 
+    //IM/2021/058 - K.D. Kolonnage
+
     private void setupSearchView() {
         searchView = findViewById(R.id.search_view);
 
-        searchView.setOnClickListener(view -> {
-            // Programmatically switch to the search tab
-            BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-            bottomNavigationView.setSelectedItemId(R.id.search);
-        });
+//        searchView.setOnClickListener(view -> {
+//            // Programmatically switch to the search tab
+//            BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+//            bottomNavigationView.setSelectedItemId(R.id.search);
+//        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Navigate to search tab when search is submitted
-                BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-                bottomNavigationView.setSelectedItemId(R.id.search);
+                filterRecipes(query, currentMealType);  // Filter recipes based on search query and current meal type
                 return true;  // Return true to indicate that the query submission is handled
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                filterRecipes(newText, currentMealType);  // Filter as user types
+                return true;  // Return true to handle real-time filtering
             }
         });
     }
+
+    //IM/2021/058 - K.D. Kolonnage
+    private void filterRecipes(String query, String currentMealType) {
+        filteredList.clear(); // clear current list
+
+        if (query == null || query.trim().isEmpty()) {
+            // if search bar is empty, filter by current meal type
+            for (Recipe recipe : recipeList) {
+                if (recipe.getMeal().equalsIgnoreCase(currentMealType)) {
+                    filteredList.add(recipe);
+                }
+            }
+        } else {
+            String[] queryWords = query.trim().toLowerCase().split("\\s+");
+
+            for (Recipe recipe : recipeList) {
+                // Filter by current meal type
+                if (!recipe.getMeal().equalsIgnoreCase(currentMealType)) {
+                    continue; // skip recipes not in the current meal type
+                }
+
+                String lowerCaseTitle = recipe.getTitle().toLowerCase();
+                String[] titleWords = lowerCaseTitle.split("\\s+");
+
+                // first letter match search
+                if (titleWords.length >= queryWords.length) {
+                    boolean match = true;
+                    for (int i = 0; i < queryWords.length; i++) {
+                        if (!titleWords[i].startsWith(queryWords[i])) {
+                            match = false;
+                            break;
+                        }
+                    }
+                    if (match) {
+                        filteredList.add(recipe);
+                        continue;
+                    }
+                }
+
+                // Substring search
+                if (lowerCaseTitle.contains(query.trim().toLowerCase())) {
+                    filteredList.add(recipe);
+                }
+            }
+        }
+
+        // Handle no results found
+        if (filteredList.isEmpty()) {
+            // Show a toast message
+            Toast.makeText(Home.this, "No recipes match your search", Toast.LENGTH_SHORT).show();
+        }
+
+        // Notify adapter about updated list
+        adapter.notifyDataSetChanged();
+    }
+    //IM/2021/058 - K.D Kolonnage
 
     private void setupProfileIcon() {
         profileIcon = findViewById(R.id.imageView_profile);
@@ -166,6 +221,4 @@ public class Home extends AppCompatActivity {
         });
     }
 }
-
 // IM/2021/020 - M.A.P.M Karunathilaka
-
