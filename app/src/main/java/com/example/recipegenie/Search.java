@@ -26,10 +26,10 @@ public class Search extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecipeAdapter adapter;
-    private List<Recipe> recipeList; // List to store all recipes from Firebase
-    private List<Recipe> filteredList; // List to store filtered recipes
+    private List<Recipe> recipeList; //store all recipes from Firebase
+    private List<Recipe> filteredList; //tore filtered recipes
     private DatabaseReference databaseReference;
-    private TextView noResultsTextView; // TextView to display when no results are found
+    private TextView noResultsTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +38,14 @@ public class Search extends AppCompatActivity {
 
         SearchView searchView = findViewById(R.id.searchView);
         recyclerView = findViewById(R.id.recyclerView);
-        noResultsTextView = findViewById(R.id.noResultsTextView); // Ensure you add this TextView in your layout file
+        noResultsTextView = findViewById(R.id.noResultsTextView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize lists
         recipeList = new ArrayList<>();
         filteredList = new ArrayList<>();
+
+        // Set up adapter
         adapter = new RecipeAdapter(this,filteredList);
         recyclerView.setAdapter(adapter);
 
@@ -53,13 +55,12 @@ public class Search extends AppCompatActivity {
         // Fetch data from Firebase
         fetchRecipesFromFirebase();
 
-        // Setup SearchView listener to filter recipes based on query
+        // event listener to filter recipes based on query
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false; // No action needed on submit
+                return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 filterRecipes(newText);
@@ -69,6 +70,7 @@ public class Search extends AppCompatActivity {
 
         // IM/2021/020 - M.A.P.M Karunathilaka
 
+        //set up nav bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         FloatingActionButton fab = findViewById(R.id.addBtn);
 
@@ -127,31 +129,35 @@ public class Search extends AppCompatActivity {
         } else {
             String[] queryWords = query.trim().toLowerCase().split("\\s+");
             for (Recipe recipe : recipeList) {
-                if (recipe.getTitle() != null) {
-                    String lowerCaseTitle = recipe.getTitle().toLowerCase();
-                    String[] titleWords = lowerCaseTitle.split("\\s+");
+                String lowerCaseTitle = recipe.getTitle().toLowerCase();
+                String[] titleWords = lowerCaseTitle.split("\\s+");
 
-                    // check if the recipe first letter matching with the user inputs
-                    if (titleWords.length >= queryWords.length) {
-                        boolean match = true;
-                        for (int i = 0; i < queryWords.length; i++) {
-                            if (!titleWords[i].startsWith(queryWords[i])) {
-                                match = false;
-                                break;
-                            }
-                        }
-                        if (match) {
-                            filteredList.add(recipe);
-                            continue;
+                // check if the recipe first letter matching with the user inputs
+                if (titleWords.length >= queryWords.length) {
+                    boolean match = true;
+                    for (int i = 0; i < queryWords.length; i++) {
+                        if (!titleWords[i].startsWith(queryWords[i])) {
+                            match = false;
+                            break;
                         }
                     }
-
-                    // substring search
-                    if (lowerCaseTitle.contains(query.trim().toLowerCase())) {
+                    if (match) {
                         filteredList.add(recipe);
+                        continue;
                     }
                 }
+
+                // substring search
+                if (lowerCaseTitle.contains(query.trim().toLowerCase())) {
+                    filteredList.add(recipe);
+                }
             }
+        }
+        if (filteredList.isEmpty()) {
+            noResultsTextView.setVisibility(View.VISIBLE);
+            noResultsTextView.setText("No recipes found.");
+        } else {
+            noResultsTextView.setVisibility(View.GONE);
         }
 
         // updated list
