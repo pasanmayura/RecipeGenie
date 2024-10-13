@@ -127,8 +127,6 @@ public class Home extends AppCompatActivity {
         UserDataFetch.fetchUsername(UsernameTextView);
     }
 
-    //IM/2021/058 - K.D. Kolonnage
-
     private void setupSearchView() {
         searchView = findViewById(R.id.search_view);
 
@@ -142,7 +140,7 @@ public class Home extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 filterRecipes(query, currentMealType);  // Filter recipes based on search query and current meal type
-                return true;  // Return true to indicate that the query submission is handled
+                return true;  // Return true
             }
 
             @Override
