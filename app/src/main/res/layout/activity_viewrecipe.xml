@@ -118,7 +118,7 @@
                 android:layout_width="240dp"
                 android:layout_height="55dp"
                 android:layout_marginTop="3dp"
-                android:layout_marginEnd="148dp"
+                android:layout_marginEnd="100dp"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:scaleX="0.5"
@@ -138,7 +138,7 @@
                 android:text="0.0"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/saveIcon"
-                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintHorizontal_bias="0.523"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardview"
                 tools:ignore="MissingConstraints" />
