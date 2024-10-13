@@ -229,7 +229,7 @@ public class ViewRecipe extends AppCompatActivity {
                 Toast.makeText(ViewRecipe.this, "Recipe saved!", Toast.LENGTH_SHORT).show();
             } else {
                 // Failed to save the recipe
-                Toast.makeText(ViewRecipe.this, " faild Recipe saved!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewRecipe.this, " Failed Recipe saved!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -428,16 +428,7 @@ public class ViewRecipe extends AppCompatActivity {
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Delicious Recipe: " + recipeName);
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);  // The text to share
 
-        // Optional: Check if WhatsApp is installed
-        boolean isWhatsAppInstalled = isAppInstalled("com.whatsapp");
-        if (isWhatsAppInstalled) {
-            // If WhatsApp is installed, set the package to WhatsApp
-            shareIntent.setPackage("com.whatsapp");
-            startActivity(shareIntent);  // Share via WhatsApp
-        } else {
-            // If WhatsApp is not installed, use other platforms
-            startActivity(Intent.createChooser(shareIntent, "Share Recipe via"));
-        }
+        startActivity(Intent.createChooser(shareIntent, "Share Recipe via"));
     }
 
 
