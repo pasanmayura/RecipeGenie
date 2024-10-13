@@ -314,8 +314,13 @@ public class editRecipe extends AppCompatActivity {
 
         // Update the recipe using the recipeId
         databaseRef.child(recipeId).updateChildren(updatedRecipe)
-                .addOnSuccessListener(aVoid ->
-                        Toast.makeText(editRecipe.this, "Recipe updated successfully!", Toast.LENGTH_SHORT).show())
+                .addOnSuccessListener(aVoid ->{
+                        Toast.makeText(editRecipe.this, "Recipe updated successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(editRecipe.this, fragment_MyRecipes.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clears previous activities
+                        startActivity(intent);
+                        finish();
+                })
                 .addOnFailureListener(e ->
                         Toast.makeText(editRecipe.this, "Failed to update recipe", Toast.LENGTH_SHORT).show());
     }
